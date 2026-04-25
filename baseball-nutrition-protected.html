@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚾ 高校野球 アスリート栄養プランナー</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif; background: #f5f5f0; color: #1a1a1a; min-height: 100vh; }
+
+/* ===== PASSWORD SCREEN ===== */
+#pw-screen {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; padding: 2rem;
+}
+.pw-card {
+  background: #fff; border-radius: 20px; padding: 2.5rem 2rem;
+  width: 100%; max-width: 340px; text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+.pw-icon { font-size: 48px; margin-bottom: 1rem; }
+.pw-title { font-size: 18px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+.pw-sub { font-size: 12px; color: #888; margin-bottom: 1.5rem; }
+.pw-input {
+  width: 100%; height: 48px; font-size: 18px; text-align: center;
+  border: 2px solid #e0e0e0; border-radius: 12px; padding: 0 1rem;
+  letter-spacing: 4px; outline: none; transition: border-color 0.2s;
+  background: #fafaf8; color: #1a1a1a;
+}
+.pw-input:focus { border-color: #1D9E75; }
+.pw-input.error { border-color: #D85A30; animation: shake 0.3s; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+.pw-btn {
+  width: 100%; height: 48px; margin-top: 12px; font-size: 15px; font-weight: 600;
+  background: #1D9E75; color: #fff; border: none; border-radius: 12px;
+  cursor: pointer; transition: background 0.15s;
+}
+.pw-btn:active { background: #0F6E56; }
+.pw-error { font-size: 12px; color: #D85A30; margin-top: 8px; min-height: 18px; }
+.pw-hint { font-size: 11px; color: #bbb; margin-top: 1.5rem; line-height: 1.6; }
+
+/* ===== MAIN APP (hidden until auth) ===== */
+#main-app { display: none; }
+.app { max-width: 680px; margin: 0 auto; padding: 0 0 4rem; }
+.header { text-align: center; padding: 1.5rem 1rem 1rem; background: #fff; border-bottom: 1px solid #e8e8e3; margin-bottom: 1rem; }
+.header h1 { font-size: 18px; font-weight: 600; color: #1a1a1a; }
+.header p { font-size: 12px; color: #888; margin-top: 4px; }
+.tabs { display: flex; gap: 3px; margin: 0 0.75rem 1rem; background: #ebebeb; border-radius: 10px; padding: 3px; }
+.tab { flex: 1; padding: 7px 2px; font-size: 10px; font-weight: 400; border: none; background: transparent; border-radius: 8px; cursor: pointer; color: #666; transition: all 0.15s; }
+.tab.active { background: #fff; color: #1a1a1a; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.pad { padding: 0 0.75rem; }
+.hidden { display: none; }
+.card { background: #fff; border: 1px solid #e8e8e3; border-radius: 14px; overflow: hidden; margin-bottom: 0.8rem; }
+.card-pad { padding: 1rem 1.1rem; }
+.card-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 10px; }
+.input-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.input-row label { font-size: 12px; color: #666; width: 80px; flex-shrink: 0; }
+.input-row input, .input-row select { flex: 1; height: 36px; font-size: 14px; border: 1px solid #ddd; border-radius: 8px; padding: 0 10px; background: #fafaf8; color: #1a1a1a; }
+.result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.result-card { background: #f5f5f0; border-radius: 10px; padding: 12px; text-align: center; }
+.result-num { font-size: 24px; font-weight: 700; color: #1a1a1a; }
+.result-unit { font-size: 11px; color: #888; }
+.result-label { font-size: 11px; color: #666; margin-top: 3px; }
+.formula-note { font-size: 11px; color: #888; margin-top: 8px; padding: 7px 10px; background: #f5f5f0; border-radius: 8px; }
+.pbar-section { margin-top: 10px; }
+.pbar-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.pbar-name { font-size: 11px; color: #666; width: 100px; flex-shrink: 0; }
+.pbar-bg { flex: 1; height: 6px; background: #ebebeb; border-radius: 3px; overflow: hidden; }
+.pbar-fill { height: 100%; background: #1D9E75; border-radius: 3px; transition: width 0.5s; }
+.pbar-val { font-size: 11px; color: #666; width: 30px; text-align: right; }
+.note-box { font-size: 11px; color: #666; margin-top: 8px; padding: 8px 10px; background: #f5f5f0; border-radius: 8px; line-height: 1.6; }
+.grow-tip { font-size: 12px; color: #1a1a1a; line-height: 1.8; padding: 8px 0; }
+.grow-highlight { background: #fff8e1; border-radius: 8px; padding: 8px 10px; margin-top: 8px; font-size: 12px; color: #5a3e00; }
+.day-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin: 0 0.75rem 1rem; }
+.day-btn { padding: 7px 2px; font-size: 10px; text-align: center; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; background: #fff; color: #1a1a1a; transition: all 0.12s; }
+.day-btn.sel { border-width: 2px; font-weight: 600; }
+.day-lbl { font-size: 13px; font-weight: 600; display: block; }
+.day-type { font-size: 9px; color: #888; display: block; margin-top: 1px; }
+.info-box { border-radius: 10px; border: 1px solid; padding: 10px 12px; margin-bottom: 0.8rem; }
+.info-box-title { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+.info-box-text { font-size: 12px; line-height: 1.7; }
+.cal-box { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f5f5f0; border-radius: 10px; margin-bottom: 0.8rem; }
+.cal-num { font-size: 22px; font-weight: 700; color: #1a1a1a; }
+.cal-label { font-size: 11px; color: #888; }
+.macro-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.macro-label { font-size: 11px; color: #666; width: 60px; }
+.macro-bar-bg { flex: 1; height: 6px; background: #ebebeb; border-radius: 3px; overflow: hidden; }
+.macro-bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s; }
+.bc { background: #EF9F27; } .bp { background: #1D9E75; } .bf { background: #378ADD; }
+.macro-val { font-size: 11px; color: #666; width: 28px; text-align: right; }
+.rules-box { border: 1px solid #5DCAA5; background: #e8f8f2; border-radius: 10px; padding: 10px 14px; margin-bottom: 0.8rem; }
+.rules-title { font-size: 12px; font-weight: 600; color: #0a5c3f; margin-bottom: 6px; }
+.rules-box li { font-size: 12px; color: #0a5c3f; padding: 2px 0 2px 14px; position: relative; line-height: 1.5; }
+.rules-box li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; background: #1D9E75; border-radius: 50%; }
+.meal-card { background: #fff; border: 1px solid #e8e8e3; border-radius: 14px; overflow: hidden; margin-bottom: 0.7rem; }
+.meal-hdr { padding: 9px 14px; border-bottom: 1px solid #f0f0eb; display: flex; align-items: center; justify-content: space-between; }
+.meal-hdr-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+.meal-badge { font-size: 10px; padding: 2px 8px; border-radius: 20px; }
+.meal-body { padding: 8px 14px; }
+.meal-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 6px 0; border-bottom: 1px solid #f5f5f0; }
+.meal-item:last-child { border-bottom: none; }
+.meal-item-name { font-size: 12px; color: #1a1a1a; }
+.meal-item-note { font-size: 10px; color: #888; margin-top: 2px; }
+.meal-item-cal { font-size: 11px; color: #888; white-space: nowrap; margin-left: 4px; }
+.shop-cat { font-size: 12px; font-weight: 600; color: #666; margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px solid #e8e8e3; }
+.shop-items { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+.shop-tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid #ddd; background: #fff; color: #1a1a1a; cursor: pointer; transition: all 0.12s; user-select: none; -webkit-user-select: none; }
+.shop-tag.done { background: #e8f8f2; border-color: #1D9E75; color: #0a5c3f; text-decoration: line-through; }
+.water-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 0.8rem; }
+.water-card { border: 1px solid #ddd; border-radius: 10px; padding: 10px 12px; background: #fff; }
+.water-type { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+.water-when { font-size: 10px; color: #888; }
+.water-brands { font-size: 10px; color: #185FA5; margin-top: 5px; }
+.ng-box { border: 1px solid #f09595; border-radius: 10px; padding: 10px 12px; background: #fff5f5; margin-bottom: 0.8rem; }
+.ng-title { font-size: 12px; font-weight: 600; color: #a32d2d; margin-bottom: 3px; }
+.ng-body { font-size: 12px; color: #501313; line-height: 1.5; }
+.drink-recipe { border: 1px solid #5DCAA5; border-radius: 10px; padding: 10px 12px; background: #e8f8f2; margin-bottom: 0.6rem; }
+.drink-name { font-size: 12px; font-weight: 600; color: #0a5c3f; margin-bottom: 3px; }
+.drink-body { font-size: 12px; color: #0a5c3f; line-height: 1.6; }
+.tip-card { border-radius: 10px; border: 1px solid; padding: 10px 12px; margin-bottom: 0.7rem; }
+.tip-label { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+.tip-body { font-size: 12px; line-height: 1.7; }
+.nutri-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 0.8rem; }
+.nutri-item { border: 1px solid #ddd; border-radius: 10px; padding: 9px 11px; background: #fff; }
+.nutri-name { font-size: 11px; font-weight: 600; margin-bottom: 3px; }
+.nutri-foods { font-size: 11px; color: #555; line-height: 1.5; }
+.section-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin: 1rem 0 0.5rem; }
+</style>
+</head>
+<body>
+
+<!-- ===== PASSWORD SCREEN ===== -->
+<div id="pw-screen">
+  <div class="pw-card">
+    <div class="pw-icon">⚾</div>
+    <div class="pw-title">野球部 栄養プランナー</div>
+    <div class="pw-sub">保護者専用アプリです<br>パスワードを入力してください</div>
+    <input class="pw-input" type="password" id="pw-input" placeholder="••••••"
+      maxlength="20" onkeydown="if(event.key==='Enter')tryLogin()" autocomplete="off" />
+    <div class="pw-error" id="pw-error"></div>
+    <button class="pw-btn" onclick="tryLogin()">ログイン</button>
+    <div class="pw-hint">パスワードは監督・コーチから<br>LINEでお知らせしています</div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="main-app">
+<div class="app">
+  <div class="header">
+    <h1>⚾ 高校野球 アスリート栄養プランナー</h1>
+    <p>スタジオF ジュニアアスリートキッチン理論に基づく</p>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('calc')">📊 必要量</button>
+    <button class="tab" onclick="showTab('menu')">📋 献立</button>
+    <button class="tab" onclick="showTab('shop')">🛒 買い物</button>
+    <button class="tab" onclick="showTab('water')">💧 水分</button>
+    <button class="tab" onclick="showTab('tips')">💪 栄養</button>
+  </div>
+
+  <!-- TAB: Calculator -->
+  <div id="tab-calc" class="pad">
+    <div class="card card-pad">
+      <div class="card-title">1日の必要カロリーを計算する</div>
+      <div class="input-row">
+        <label>年齢</label>
+        <select id="age" onchange="calc()">
+          <option value="31">12〜14歳（基礎代謝 31.0）</option>
+          <option value="27" selected>15〜17歳（基礎代謝 27.0）</option>
+        </select>
+      </div>
+      <div class="input-row">
+        <label>体重（kg）</label>
+        <input type="number" id="weight" value="65" min="40" max="120" oninput="calc()" />
+      </div>
+      <div class="formula-note">計算式：体重 × 基礎代謝基準値 × 身体活動レベル 2.0（厚生労働省）</div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="result-num" id="r-kcal">3510</div>
+          <div class="result-unit">kcal / 日</div>
+          <div class="result-label">1日の必要エネルギー</div>
+        </div>
+        <div class="result-card">
+          <div class="result-num" id="r-protein">117</div>
+          <div class="result-unit">g / 日</div>
+          <div class="result-label">たんぱく質（体重×1.8g）</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-pad">
+      <div class="card-title" id="protein-title">たんぱく質 117g を食材で確保するには</div>
+      <div style="font-size:11px;color:#888;margin-bottom:8px;">各食材1食分で必要量の何割をカバーできるか</div>
+      <div class="pbar-section" id="proteinBars"></div>
+      <div class="note-box">動物性×大豆製品の「ダブルたんぱく」を意識。毎食：卵・納豆・牛乳・ヨーグルトでベースを確保し、肉や魚でメインを追加。</div>
+    </div>
+    <div class="card card-pad" style="border-color:#FAC77580;">
+      <div class="card-title">増量計画の立て方（スタジオF式）</div>
+      <div class="grow-tip">
+        ① 何kg増量したいか → 筋肉量・体脂肪量を体組成計で測る<br>
+        ② 期間を決める → 「いつまでに何kg？」<br>
+        ③ 必要エネルギーを算出（上の計算機を活用）<br>
+        ④ 体脂肪を増やさず増量するには <strong style="color:#ba7517;">ビタミン・ミネラルが大事！</strong>
+      </div>
+      <div class="grow-highlight">コツ：ちょい足し小鉢・具だくさん汁物・フルーツで微量栄養素をカバー</div>
+    </div>
+  </div>
+
+  <!-- TAB: Menu -->
+  <div id="tab-menu" class="hidden">
+    <div class="day-grid" id="dayGrid"></div>
+    <div class="pad" id="dayContent"></div>
+  </div>
+
+  <!-- TAB: Shopping -->
+  <div id="tab-shop" class="pad hidden">
+    <div style="font-size:12px;color:#666;padding:8px 10px;background:#f5f5f0;border-radius:8px;margin-bottom:1rem;">タップで購入済みチェックができます。1週間まとめ買いの目安量です。</div>
+    <div id="shopContent"></div>
+  </div>
+
+  <!-- TAB: Water -->
+  <div id="tab-water" class="pad hidden">
+    <p class="section-title">飲料の種類と使い分け</p>
+    <div class="water-grid">
+      <div class="water-card" style="border-color:#85B7EB;">
+        <div class="water-type" style="color:#185FA5;">アイソトニック飲料</div>
+        <div class="water-when">運動前・運動後</div>
+        <div class="water-brands">ポカリスエット、アクエリアスなど</div>
+      </div>
+      <div class="water-card" style="border-color:#5DCAA5;">
+        <div class="water-type" style="color:#0a5c3f;">ハイポトニック飲料</div>
+        <div class="water-when">運動中・運動直後</div>
+        <div class="water-brands">アミノバイタル、グリーン DA・KA・RAなど</div>
+      </div>
+      <div class="water-card" style="border-color:#f09595;">
+        <div class="water-type" style="color:#a32d2d;">経口補水液 / OS-1</div>
+        <div class="water-when">脱水・熱中症時のみ</div>
+        <div class="water-brands">OS-1、アクアソリタなど</div>
+      </div>
+      <div class="water-card">
+        <div class="water-type">適温は5〜15度</div>
+        <div class="water-when">冷やしすぎNG</div>
+        <div class="water-brands">水1Lあたり食塩1〜2g・砂糖40〜80g</div>
+      </div>
+    </div>
+    <div class="ng-box">
+      <div class="ng-title">⚠️ 常備しない飲料</div>
+      <div class="ng-body">コーラ・サイダー・市販の清涼飲料水・エナジードリンク。糖分過多・胃腸に負担がかかります。</div>
+    </div>
+    <p class="section-title">試合当日の水分補給ルール</p>
+    <div class="rules-box" style="margin-bottom:0.8rem;">
+      <div class="rules-title">5つの必須ルール（スタジオF式）</div>
+      <ul>
+        <li>試合3〜4時間前に食事を済ませる</li>
+        <li>移動中にスポーツドリンク500ml 1本飲み切る</li>
+        <li>試合30分〜1時間前から水分補給開始（スポドリ＋エネルギーゼリー）</li>
+        <li>試合後30分以内に補食（糖質＋たんぱく質）</li>
+        <li>夕食は次の試合を意識してバランスよく食べる</li>
+      </ul>
+    </div>
+    <p class="section-title">手作りスポーツドリンクレシピ</p>
+    <div class="drink-recipe">
+      <div class="drink-name">🍋 はちみつレモン</div>
+      <div class="drink-body">水1L＋はちみつ大さじ3〜4＋レモン果汁1個分＋塩ひとつまみ。ビタミンC補給にも◎</div>
+    </div>
+    <div class="drink-recipe">
+      <div class="drink-name">🍵 梅醤番茶</div>
+      <div class="drink-body">梅干しの種・醤油・生姜・ほうじ茶。ミネラル豊富。夏の塩分補給に最適。</div>
+    </div>
+  </div>
+
+  <!-- TAB: Tips -->
+  <div id="tab-tips" class="pad hidden">
+    <p class="section-title">骨格筋量を増加させる食べ方</p>
+    <div class="tip-card" style="border-color:#5DCAA5;background:#e8f8f2;">
+      <div class="tip-label" style="color:#0a5c3f;">たんぱく質（筋肉の材料）</div>
+      <div class="tip-body" style="color:#0a5c3f;">ロイシンを多く含む動物性たんぱく質（肉・魚・卵・乳製品）＋大豆製品の「ダブルたんぱく」が重要。毎食たんぱく質を必ず入れる。</div>
+    </div>
+    <div class="tip-card" style="border-color:#FAC775;background:#fff8e1;">
+      <div class="tip-label" style="color:#633806;">炭水化物（エネルギー源）</div>
+      <div class="tip-body" style="color:#412402;">筋肉合成にもエネルギーが必要。たんぱく質だけ増やしてもエネルギー不足では筋肉にならない。ご飯をしっかり食べる。</div>
+    </div>
+    <div class="tip-card" style="border-color:#85B7EB;background:#e8f3ff;">
+      <div class="tip-label" style="color:#0C447C;">ビタミン・ミネラル（補助役）</div>
+      <div class="tip-body" style="color:#042C53;">炭水化物・たんぱく質を体内で効率よく使うために必須。ビタミンB1（雑穀・豚肉）・B2（納豆・魚・卵）・B6（マグロ・鮭）。カルシウム＋ビタミンD＋日光で骨強化。</div>
+    </div>
+    <p class="section-title">基本の食卓の形（定食スタイル）</p>
+    <div class="tip-card" style="border-color:#ddd;background:#fff;">
+      <div class="tip-label">主食＋主菜＋副菜＋果物＋乳製品</div>
+      <div class="tip-body" style="color:#555;">
+        <span style="color:#ba7517;">主食</span>（ご飯・パン・麺類）炭水化物 ／
+        <span style="color:#1D9E75;">主菜</span>（肉・魚・卵・豆）たんぱく質 ／
+        <span style="color:#3B6D11;">副菜</span>（野菜・きのこ・海藻）ビタミン・ミネラル ／
+        <span style="color:#D85A30;">果物</span> 疲労回復 ／
+        <span style="color:#185FA5;">乳製品</span> カルシウム<br><br>
+        揃わない時は補食で調整しましょう。
+      </div>
+    </div>
+    <p class="section-title">五大栄養素と主な食材</p>
+    <div class="nutri-grid">
+      <div class="nutri-item" style="border-color:#FAC775;background:#fff8e1;">
+        <div class="nutri-name" style="color:#633806;">炭水化物</div>
+        <div class="nutri-foods">ご飯・おにぎり・パン・うどん・バナナ・芋類</div>
+      </div>
+      <div class="nutri-item" style="border-color:#5DCAA5;background:#e8f8f2;">
+        <div class="nutri-name" style="color:#0a5c3f;">たんぱく質</div>
+        <div class="nutri-foods">鶏むね・鮭・マグロ・卵・納豆・豆腐・牛乳・チーズ</div>
+      </div>
+      <div class="nutri-item" style="border-color:#85B7EB;background:#e8f3ff;">
+        <div class="nutri-name" style="color:#0C447C;">ビタミン</div>
+        <div class="nutri-foods">緑黄色野菜・フルーツ（柑橘類）・海苔・パプリカ・緑茶</div>
+      </div>
+      <div class="nutri-item" style="border-color:#C0DD97;background:#f0f8e8;">
+        <div class="nutri-name" style="color:#27500A;">ミネラル</div>
+        <div class="nutri-foods">牛乳・ヨーグルト・ひじき・小魚・牡蠣・カツオ・牛肉</div>
+      </div>
+    </div>
+    <p class="section-title">試合の日の補食ポイント</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div class="tip-card" style="border-color:#EF9F27;background:#fff8e1;margin-bottom:0;">
+        <div class="tip-label" style="color:#633806;">試合前補食</div>
+        <div class="tip-body" style="color:#412402;">エネルギー・水分・ミネラル。おにぎり・バナナ・エネルギーゼリー。</div>
+      </div>
+      <div class="tip-card" style="border-color:#1D9E75;background:#e8f8f2;margin-bottom:0;">
+        <div class="tip-label" style="color:#0a5c3f;">試合後補食</div>
+        <div class="tip-body" style="color:#085041;">疲労回復：糖質＋たんぱく質＋ビタミン＋水分。フルーツ・おにぎり・プロテイン。</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// ===== パスワード設定 =====
+// ここを変更するとパスワードが変わります
+const CORRECT_PASSWORD = 'syuyu2026';
+
+// セッション中はログイン状態を維持
+function tryLogin() {
+  const input = document.getElementById('pw-input').value;
+  const errEl = document.getElementById('pw-error');
+  if (input === CORRECT_PASSWORD) {
+    document.getElementById('pw-screen').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    sessionStorage.setItem('auth', '1');
+    calc();
+    showTab('calc');
+  } else {
+    errEl.textContent = 'パスワードが違います。もう一度お試しください。';
+    const inp = document.getElementById('pw-input');
+    inp.classList.add('error');
+    inp.value = '';
+    setTimeout(() => inp.classList.remove('error'), 400);
+  }
+}
+
+// ページを開いたとき、同じセッションならスキップ
+if (sessionStorage.getItem('auth') === '1') {
+  document.getElementById('pw-screen').style.display = 'none';
+  document.getElementById('main-app').style.display = 'block';
+}
+
+// ===== アプリ本体 =====
+const PROTEIN_SOURCES = [
+  { name: '鶏むね肉100g', g: 23 },
+  { name: '鮭100g', g: 22 },
+  { name: 'マグロ100g', g: 26 },
+  { name: '卵1個', g: 6 },
+  { name: '納豆1パック', g: 8 },
+  { name: '牛乳200ml', g: 7 },
+  { name: '豆腐150g', g: 8 },
+  { name: '牛もも肉100g', g: 21 }
+];
+
+function calc() {
+  const w = parseFloat(document.getElementById('weight').value) || 65;
+  const rate = parseFloat(document.getElementById('age').value);
+  const kcal = Math.round(w * rate * 2.0);
+  const protein = Math.round(w * 1.8);
+  document.getElementById('r-kcal').textContent = kcal.toLocaleString();
+  document.getElementById('r-protein').textContent = protein;
+  document.getElementById('protein-title').textContent = 'たんぱく質 ' + protein + 'g を食材で確保するには';
+  document.getElementById('proteinBars').innerHTML = PROTEIN_SOURCES.map(s => {
+    const pct = Math.min(100, Math.round(s.g / protein * 100));
+    return '<div class="pbar-row"><span class="pbar-name">' + s.name + '</span><div class="pbar-bg"><div class="pbar-fill" style="width:' + pct + '%"></div></div><span class="pbar-val">' + pct + '%</span></div>';
+  }).join('');
+}
+
+const DAYS = [
+  { key:'mon', label:'月', typeLabel:'練習①', color:'#1D9E75', colorLight:'#e8f8f2' },
+  { key:'tue', label:'火', typeLabel:'練習②', color:'#1D9E75', colorLight:'#e8f8f2' },
+  { key:'wed', label:'水', typeLabel:'練習③', color:'#1D9E75', colorLight:'#e8f8f2' },
+  { key:'thu', label:'木', typeLabel:'オフ', color:'#888780', colorLight:'#f1efea' },
+  { key:'fri', label:'金', typeLabel:'試合前日', color:'#EF9F27', colorLight:'#fff8e1' },
+  { key:'sat', label:'土', typeLabel:'試合', color:'#D85A30', colorLight:'#fff0eb' },
+  { key:'sun', label:'日', typeLabel:'試合後', color:'#378ADD', colorLight:'#e8f3ff' }
+];
+
+const MEALS = {
+  mon:{ info:'栄養バランスよく食べる日。脂肪分の多い肉・魚もOK。食材の種類（食材数）を多く意識して。', rules:[], carb:55, protein:25, fat:20, kcal:3200, meals:[
+    { name:'朝食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'味噌汁（豆腐・ひじき）',note:'鉄分・食物繊維',cal:70},{n:'目玉焼き2個',note:'たんぱく質',cal:180},{n:'納豆1パック',note:'大豆たんぱく・発酵食品',cal:95},{n:'牛乳200ml',note:'カルシウム',cal:134}]},
+    { name:'昼食（定食スタイル）', items:[{n:'豚バラ炒飯（大盛り）',note:'脂質OK・炭水化物',cal:650},{n:'ひじきの煮物',note:'鉄分・ミネラル',cal:85},{n:'きのこ汁',note:'ビタミンD',cal:45}]},
+    { name:'補食（練習1〜2時間前）', items:[{n:'おにぎり2個',note:'エネルギー補給',cal:360},{n:'バナナ1本',note:'カリウム・即効エネルギー',cal:86}]},
+    { name:'夕食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'牛サーロインステーキ150g',note:'良質たんぱく質・鉄分',cal:380},{n:'ぶりの塩焼き',note:'DHA・EPA',cal:210},{n:'ごぼうきんぴら',note:'食物繊維',cal:110},{n:'ヨーグルト',note:'カルシウム・腸内環境',cal:90}]}
+  ]},
+  tue:{ info:'栄養バランスの日。調理時の油の使いすぎに注意。主食・主菜・副菜・果物・乳製品を揃える。', rules:[], carb:55, protein:25, fat:20, kcal:3200, meals:[
+    { name:'朝食', items:[{n:'白米ご飯（大盛り）',note:'200g',cal:336},{n:'鮭の塩焼き',note:'たんぱく質・DHA・ビタミンB6',cal:175},{n:'卵焼き',note:'たんぱく質',cal:135},{n:'牛乳200ml',note:'カルシウム',cal:134},{n:'青菜のお浸し',note:'ビタミン・鉄分',cal:40}]},
+    { name:'昼食', items:[{n:'鶏むね肉の定食',note:'蒸し調理・低脂質',cal:420},{n:'五目ご飯（大盛り）',note:'野菜・きのこ',cal:380},{n:'豆腐と野菜の味噌汁',note:'具だくさん',cal:70}]},
+    { name:'補食', items:[{n:'食パン2枚',note:'炭水化物',cal:264},{n:'チーズ1枚',note:'カルシウム',cal:70},{n:'オレンジジュース',note:'ビタミンC',cal:95}]},
+    { name:'夕食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'豚ヒレ肉の生姜焼き',note:'脂質少なめ・ビタミンB1',cal:320},{n:'かぼちゃの煮物',note:'β-カロテン・ビタミンC',cal:115},{n:'豆腐サラダ',note:'大豆たんぱく',cal:120},{n:'牛乳',note:'カルシウム',cal:134}]}
+  ]},
+  wed:{ info:'試合前々日。栄養バランスを保ちながら、夕食から炭水化物の比率を少し上げてグリコーゲン蓄積を準備。', rules:[], carb:58, protein:24, fat:18, kcal:3300, meals:[
+    { name:'朝食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'目玉焼き2個',note:'たんぱく質',cal:180},{n:'豚汁（根菜たっぷり）',note:'ビタミンB1・食物繊維',cal:145},{n:'牛乳',note:'カルシウム',cal:134}]},
+    { name:'昼食', items:[{n:'カツ丼（大盛り）',note:'たんぱく質・炭水化物',cal:720},{n:'野菜サラダ',note:'ドレッシング少なめ',cal:80},{n:'味噌汁',note:'水分・ミネラル',cal:45}]},
+    { name:'補食', items:[{n:'おにぎり2個（鮭・梅）',note:'エネルギー補給',cal:360},{n:'野菜ジュース',note:'ビタミン',cal:75}]},
+    { name:'夕食（炭水化物UP開始）', items:[{n:'白米ご飯（大盛り）',note:'250g・明日に向けて増量',cal:420},{n:'マグロの刺身',note:'DHA・ビタミンB6',cal:180},{n:'じゃがいもの煮物',note:'炭水化物追加',cal:150},{n:'ほうれん草お浸し',note:'鉄分・葉酸',cal:40},{n:'ヨーグルト',note:'腸内環境',cal:90}]}
+  ]},
+  thu:{ info:'オフ日。疲労回復に集中。消化の良いものを選んで好きなものを食べてOK。脂っこいものは控えめに。', rules:[], carb:50, protein:25, fat:25, kcal:2600, meals:[
+    { name:'朝食', items:[{n:'白米ご飯（普通盛り）',note:'消化に優しい',cal:252},{n:'温泉卵',note:'消化しやすいたんぱく質',cal:80},{n:'野菜スープ',note:'疲労回復・ビタミン',cal:90},{n:'牛乳',note:'カルシウム',cal:134}]},
+    { name:'昼食', items:[{n:'好きなランチ',note:'脂っこすぎないものを選ぶ',cal:700},{n:'フルーツ',note:'ビタミンC・疲労回復',cal:100}]},
+    { name:'夕食', items:[{n:'白米ご飯（普通盛り）',note:'200g',cal:252},{n:'鶏鍋（水炊き）',note:'消化よく疲労回復',cal:380},{n:'うどん（締め）',note:'炭水化物補給',cal:240},{n:'フルーツヨーグルト',note:'ビタミン・乳酸菌',cal:150}]}
+  ]},
+  fri:{ info:'試合前日！グリコーゲンローディング本格開始。炭水化物（糖質）の比率を高め、脂質・食物繊維は控えめに。消化の良いものを選ぶ。', rules:[], carb:65, protein:20, fat:15, kcal:3400, meals:[
+    { name:'朝食', items:[{n:'白米ご飯（大盛り）',note:'250g・糖質重点',cal:420},{n:'卵焼き',note:'消化よいたんぱく質',cal:135},{n:'味噌汁（具少なめ）',note:'水分・ミネラル',cal:45},{n:'バナナ1本',note:'即効グリコーゲン補給',cal:86}]},
+    { name:'昼食', items:[{n:'白米ご飯（大盛り）',note:'250g',cal:420},{n:'赤身肉の焼き（脂少ない部位）',note:'消化よいたんぱく質',cal:280},{n:'うどん',note:'炭水化物追加',cal:240},{n:'じゃがいもスープ',note:'食物繊維少なめ',cal:80}]},
+    { name:'補食（グリコーゲン追加）', items:[{n:'おにぎり3個',note:'炭水化物たっぷり',cal:540},{n:'スポーツドリンク',note:'糖質＋水分',cal:120}]},
+    { name:'夕食（軽め・消化重視）', items:[{n:'白米ご飯（大盛り）',note:'250g',cal:420},{n:'蒸し鶏むね肉',note:'消化よい・低脂質',cal:200},{n:'じゃがいも煮',note:'炭水化物プラス',cal:150},{n:'バナナ',note:'就寝前グリコーゲン',cal:86}]}
+  ]},
+  sat:{ info:'試合当日！糖質・水分中心。試合3〜4時間前に食事を終える。移動中はスポドリ500ml必飲。', rules:['試合3〜4時間前に食事完了','移動中にスポーツドリンク500ml飲み切る','試合30分〜1時間前から水分補給開始','補食：スポーツドリンク＋エネルギーゼリー','試合後30分以内に糖質＋たんぱく質補食'], carb:70, protein:20, fat:10, kcal:3600, meals:[
+    { name:'朝食（試合3〜4時間前・必須）', items:[{n:'白米ご飯（大盛り）',note:'300g・糖質メイン',cal:504},{n:'卵焼き（薄め）',note:'消化よいたんぱく質',cal:100},{n:'バナナ2本',note:'即効エネルギー',cal:172},{n:'スポーツドリンク500ml',note:'水分・電解質',cal:120}]},
+    { name:'試合中補食（ベンチ・イニング間）', items:[{n:'おにぎり（梅・塩）',note:'補給しやすい形で',cal:180},{n:'バナナ',note:'素早いエネルギー',cal:86},{n:'エネルギーゼリー',note:'素早い糖質補給',cal:100},{n:'スポーツドリンク',note:'15〜20分おきに補給',cal:120}]},
+    { name:'試合後補食（30分以内に！）', items:[{n:'おにぎり2個',note:'30分以内に糖質補給',cal:360},{n:'鮭おにぎり',note:'たんぱく質＋糖質',cal:200},{n:'グレープフルーツ',note:'ビタミンC・疲労回復',cal:55},{n:'牛乳 or プロテインドリンク',note:'筋肉修復',cal:160}]},
+    { name:'夕食（次の試合を意識してバランスよく）', items:[{n:'白米ご飯（大盛り）',note:'250g',cal:420},{n:'鮭の塩焼き',note:'たんぱく質・疲労回復',cal:175},{n:'アジのたたき',note:'DHA・たんぱく質',cal:120},{n:'かぼちゃ煮',note:'β-カロテン',cal:115},{n:'グレープフルーツ',note:'ビタミンC',cal:55}]}
+  ]},
+  sun:{ info:'試合後・リカバリー日。たんぱく質をしっかり摂る。糖質・緑黄色野菜・水分も意識。好きなものを食べてOK。', rules:[], carb:55, protein:25, fat:20, kcal:3000, meals:[
+    { name:'朝食', items:[{n:'白米ご飯（普通盛り）',note:'200g',cal:336},{n:'卵料理（好みで）',note:'たんぱく質',cal:150},{n:'野菜スープ',note:'ビタミン補給',cal:90},{n:'フルーツ',note:'ビタミンC',cal:100}]},
+    { name:'昼食', items:[{n:'好きなもの（定食スタイル推奨）',note:'脂っこすぎないものを',cal:750},{n:'フルーツジュース',note:'ビタミンC補給',cal:120}]},
+    { name:'夕食', items:[{n:'白米ご飯（大盛り）',note:'回復のための糖質',cal:336},{n:'好きな主菜',note:'たんぱく質多めで疲労回復',cal:400},{n:'緑黄色野菜の副菜',note:'ミネラル・ビタミン',cal:100},{n:'ヨーグルト＋フルーツ',note:'腸内環境・ビタミンC',cal:180}]}
+  ]}
+};
+
+const SHOPPING = {
+  '穀類・主食 🌾': ['白米 5kg', '雑穀ミックス', '食パン 2斤', 'うどん（乾麺）', 'おにぎり用のり', 'バナナ 3房'],
+  '肉類 🥩': ['豚バラ肉 300g', '豚ヒレ肉 300g', '牛サーロイン 200g', '赤身牛肉 300g', '鶏むね肉 600g', '鶏もも肉 400g'],
+  '魚・海鮮 🐟': ['鮭切り身 6切', 'ぶり切り身 4切', 'アジ 4尾', 'マグロ（刺身用）200g', 'カツオたたき'],
+  '卵・乳製品 🥛': ['卵 2パック（20個）', '牛乳 2L×2本', 'ヨーグルト（無糖）400g', 'チーズスライス 1袋', 'プロテインパウダー'],
+  '大豆製品 🫘': ['豆腐 4丁', '納豆 6パック', 'ひじき（乾燥）50g', '油揚げ'],
+  '野菜 🥦': ['じゃがいも 1kg', 'かぼちゃ 1/2個', 'ほうれん草 2束', 'ブロッコリー', 'ごぼう 2本', '舞茸・しめじ', 'ねぎ 3本', 'にんじん 3本', 'たまねぎ 5個', 'パプリカ'],
+  '果物 🍊': ['グレープフルーツ 4個', 'オレンジ 4個', 'りんご 4個'],
+  '補食・飲料 ⚡': ['スポーツドリンク 2L×3本', 'エネルギーゼリー 6個', '梅干し', '塩鮭フレーク'],
+  '調味料 🧴': ['味噌 500g', 'オリーブオイル', '醤油', 'みりん', 'はちみつ']
+};
+
+let curDay = 'mon';
+let checked = {};
+
+const TAB_IDS = ['calc','menu','shop','water','tips'];
+
+function showTab(t) {
+  TAB_IDS.forEach(id => {
+    const el = document.getElementById('tab-' + id);
+    el.className = id === t ? (id === 'menu' ? '' : 'pad') : (id === 'menu' ? 'hidden' : 'pad hidden');
+  });
+  document.querySelectorAll('.tab').forEach((el, i) => {
+    el.className = 'tab' + (TAB_IDS[i] === t ? ' active' : '');
+  });
+  if (t === 'menu') { renderDayGrid(); renderDay(); }
+  if (t === 'shop') renderShop();
+}
+
+function renderDayGrid() {
+  document.getElementById('dayGrid').innerHTML = DAYS.map(d => {
+    const m = MEALS[d.key], sel = d.key === curDay;
+    return '<button class="day-btn' + (sel?' sel':'') + '" style="' + (sel?'border-color:'+m.color+';color:'+m.color+';background:'+m.colorLight+';':'') + '" onclick="selDay(\''+d.key+'\')">' +
+      '<span class="day-lbl">'+d.label+'</span><span class="day-type">'+d.typeLabel+'</span></button>';
+  }).join('');
+}
+
+function selDay(k) { curDay = k; renderDayGrid(); renderDay(); }
+
+function renderDay() {
+  const m = MEALS[curDay], d = DAYS.find(x=>x.key===curDay);
+  let h = '';
+  if (m.rules.length) h += '<div class="rules-box"><div class="rules-title">試合当日の必須ルール</div><ul>'+m.rules.map(r=>'<li>'+r+'</li>').join('')+'</ul></div>';
+  h += '<div class="info-box" style="background:'+m.colorLight+';border-color:'+m.color+'60;"><div class="info-box-title" style="color:'+m.color+';">'+d.typeLabel+'の食事方針</div><div class="info-box-text">'+m.info+'</div></div>';
+  h += '<div class="cal-box"><div class="cal-label">目標摂取カロリー</div><div class="cal-num">'+m.kcal.toLocaleString()+' kcal</div></div>';
+  h += '<div style="margin-bottom:0.8rem;"><div class="macro-row"><span class="macro-label">炭水化物</span><div class="macro-bar-bg"><div class="macro-bar-fill bc" style="width:'+m.carb+'%"></div></div><span class="macro-val">'+m.carb+'%</span></div><div class="macro-row"><span class="macro-label">たんぱく質</span><div class="macro-bar-bg"><div class="macro-bar-fill bp" style="width:'+m.protein+'%"></div></div><span class="macro-val">'+m.protein+'%</span></div><div class="macro-row"><span class="macro-label">脂質</span><div class="macro-bar-bg"><div class="macro-bar-fill bf" style="width:'+m.fat+'%"></div></div><span class="macro-val">'+m.fat+'%</span></div></div>';
+  m.meals.forEach(meal => {
+    const cal = meal.items.reduce((s,i)=>s+i.cal,0);
+    h += '<div class="meal-card"><div class="meal-hdr"><span class="meal-hdr-title">'+meal.name+'</span><span class="meal-badge" style="background:'+m.colorLight+';color:'+m.color+';">'+cal+' kcal</span></div><div class="meal-body">'+
+      meal.items.map(item=>'<div class="meal-item"><div><div class="meal-item-name">'+item.n+'</div><div class="meal-item-note">'+item.note+'</div></div><div class="meal-item-cal">'+item.cal+'</div></div>').join('')+'</div></div>';
+  });
+  document.getElementById('dayContent').innerHTML = h;
+}
+
+function renderShop() {
+  document.getElementById('shopContent').innerHTML = Object.entries(SHOPPING).map(([cat,items]) =>
+    '<div><div class="shop-cat">'+cat+'</div><div class="shop-items">'+
+    items.map((item,i)=>{const key=cat+i;return '<span class="shop-tag'+(checked[key]?' done':'')+'" onclick="toggleShop(\''+key+'\',this)">'+item+'</span>';}).join('')+
+    '</div></div>').join('');
+}
+
+function toggleShop(key,el) { checked[key]=!checked[key]; el.classList.toggle('done',checked[key]); }
+</script>
+</body>
+</html>
