@@ -130,6 +130,83 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
 .nutri-name { font-size: 11px; font-weight: 600; margin-bottom: 3px; }
 .nutri-foods { font-size: 11px; color: #555; line-height: 1.5; }
 .section-title { font-size: 14px; font-weight: 600; color: #1a1a1a; margin: 1rem 0 0.5rem; }
+
+
+/* BENTO */
+.bento-card { background:#fff; border:1px solid #e8e8e3; border-radius:14px; margin-bottom:0.8rem; overflow:hidden; }
+.bento-hdr { padding:10px 14px; border-bottom:1px solid #f0f0eb; display:flex; align-items:center; justify-content:space-between; }
+.bento-title { font-size:13px; font-weight:600; color:#1a1a1a; }
+.bento-tag { font-size:10px; padding:2px 8px; border-radius:20px; }
+.bento-body { padding:10px 14px; }
+.bento-row { display:flex; align-items:flex-start; gap:8px; padding:5px 0; border-bottom:1px solid #f5f5f0; }
+.bento-row:last-child { border-bottom:none; }
+.bento-pos { font-size:10px; font-weight:600; width:40px; flex-shrink:0; }
+.bento-item { font-size:12px; color:#1a1a1a; }
+.bento-sub { font-size:10px; color:#888; margin-top:2px; }
+.bento-point { font-size:11px; margin-top:8px; padding:6px 10px; border-radius:8px; line-height:1.6; }
+
+
+
+/* ===== SUB TABS ===== */
+.sub-tabs { display: flex; gap: 4px; margin-bottom: 1rem; background: #ebebeb; border-radius: 10px; padding: 3px; }
+.sub-tab { flex: 1; padding: 8px 2px; font-size: 11px; font-weight: 400; border: none; background: transparent; border-radius: 7px; cursor: pointer; color: #666; transition: all 0.15s; }
+.sub-tab.active { background: #fff; color: #1a1a1a; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.sub-content { display: none; }
+.sub-content.show { display: block; }
+
+/* ===== GROW PLANNER ===== */
+.grow-input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.grow-input-item { display: flex; flex-direction: column; gap: 4px; }
+.grow-input-item label { font-size: 11px; color: #666; }
+.grow-input-item input, .grow-input-item select { height: 38px; font-size: 14px; border: 1px solid #ddd; border-radius: 8px; padding: 0 10px; background: #fafaf8; color: #1a1a1a; }
+.grow-result { display: none; }
+.grow-result.show { display: block; }
+.grow-stat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 1rem; }
+.grow-stat { background: #fff; border: 1px solid #e8e8e3; border-radius: 10px; padding: 10px 8px; text-align: center; }
+.grow-stat-num { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+.grow-stat-unit { font-size: 10px; color: #888; }
+.grow-stat-label { font-size: 10px; color: #666; margin-top: 2px; }
+.grow-progress { margin-bottom: 1rem; }
+.grow-month { background: #fff; border: 1px solid #e8e8e3; border-radius: 12px; margin-bottom: 0.7rem; overflow: hidden; }
+.grow-month-hdr { padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f0f0eb; }
+.grow-month-title { font-size: 13px; font-weight: 600; }
+.grow-month-badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: #e8f8f2; color: #0a5c3f; }
+.grow-month-body { padding: 10px 14px; }
+.grow-recipe-card { border: 1px solid #e8e8e3; border-radius: 10px; margin-bottom: 8px; overflow: hidden; }
+.grow-recipe-hdr { padding: 7px 12px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.grow-recipe-body { padding: 6px 12px 10px; }
+.grow-recipe-item { font-size: 11px; color: #444; padding: 3px 0; border-bottom: 1px solid #f5f5f0; display: flex; gap: 6px; }
+.grow-recipe-item:last-child { border-bottom: none; }
+.grow-recipe-tag { font-size: 10px; font-weight: 600; width: 36px; flex-shrink: 0; }
+.grow-alert { border-radius: 10px; padding: 10px 12px; margin-bottom: 0.8rem; font-size: 12px; line-height: 1.7; }
+.grow-phase-bar { display: flex; gap: 3px; margin-bottom: 1rem; }
+.grow-phase-item { flex: 1; border-radius: 6px; padding: 6px 4px; text-align: center; font-size: 10px; font-weight: 600; }
+
+/* ===== WEEKLY PLANNER ===== */
+.plan-week-row { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; margin-bottom: 0.8rem; }
+.plan-day-cell { background: #fff; border: 1px solid #e8e8e3; border-radius: 10px; padding: 6px 3px; text-align: center; }
+.plan-day-name { font-size: 11px; font-weight: 600; color: #888; margin-bottom: 3px; }
+.plan-date-inp { width: 100%; font-size: 11px; border: 1px solid #ddd; border-radius: 6px; padding: 3px 2px; text-align: center; background: #fafaf8; color: #1a1a1a; margin-bottom: 4px; }
+.plan-type-sel { width: 100%; font-size: 10px; border: 1px solid #ddd; border-radius: 6px; padding: 3px 1px; background: #fafaf8; color: #1a1a1a; }
+.plan-type-sel.t-practice { border-color: #1D9E75; background: #e8f8f2; color: #0a5c3f; }
+.plan-type-sel.t-off { border-color: #888; background: #f1efea; color: #555; }
+.plan-type-sel.t-pre { border-color: #EF9F27; background: #fff8e1; color: #633806; }
+.plan-type-sel.t-game { border-color: #D85A30; background: #fff0eb; color: #7a2a10; }
+.plan-type-sel.t-postgame { border-color: #378ADD; background: #e8f3ff; color: #0c447c; }
+.gen-btn { width: 100%; padding: 13px; font-size: 15px; font-weight: 700; background: #1D9E75; color: #fff; border: none; border-radius: 12px; cursor: pointer; margin-top: 4px; margin-bottom: 1rem; transition: background 0.15s; }
+.gen-btn:active { background: #0F6E56; }
+.plan-result { display: none; }
+.plan-result.show { display: block; }
+.week-summary { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; margin-bottom: 1rem; }
+.week-sum-cell { border-radius: 8px; padding: 6px 3px; text-align: center; border: 1px solid; }
+.week-sum-date { font-size: 9px; opacity: 0.8; }
+.week-sum-day { font-size: 12px; font-weight: 700; }
+.week-sum-type { font-size: 8px; margin-top: 1px; }
+.plan-day-section { margin-bottom: 1rem; }
+.plan-day-hdr { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 10px; margin-bottom: 6px; }
+.plan-day-hdr-date { font-size: 13px; font-weight: 700; }
+.plan-day-hdr-type { font-size: 11px; }
+.gen-shop-btn { width: 100%; padding: 11px; font-size: 13px; font-weight: 600; background: #fff; color: #1D9E75; border: 2px solid #1D9E75; border-radius: 12px; cursor: pointer; margin-bottom: 1rem; }
 </style>
 </head>
 <body>
@@ -156,15 +233,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
     <p>スタジオF ジュニアアスリートキッチン理論に基づく</p>
   </div>
   <div class="tabs">
-    <button class="tab active" onclick="showTab('calc')">📊 必要量</button>
-    <button class="tab" onclick="showTab('menu')">📋 献立</button>
+    <button class="tab active" onclick="showTab('main')">📋 献立</button>
+    <button class="tab" onclick="showTab('calc')">📊 必要量</button>
     <button class="tab" onclick="showTab('shop')">🛒 買い物</button>
     <button class="tab" onclick="showTab('water')">💧 水分</button>
     <button class="tab" onclick="showTab('tips')">💪 栄養</button>
   </div>
 
+
+
   <!-- TAB: Calculator -->
-  <div id="tab-calc" class="pad">
+  <div id="tab-calc" class="pad hidden">
     <div class="card card-pad">
       <div class="card-title">1日の必要カロリーを計算する</div>
       <div class="input-row">
@@ -211,9 +290,84 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
   </div>
 
   <!-- TAB: Menu -->
-  <div id="tab-menu" class="hidden">
-    <div class="day-grid" id="dayGrid"></div>
-    <div class="pad" id="dayContent"></div>
+  <!-- TAB: Main (献立・週間・増量) -->
+  <div id="tab-main" class="pad">
+    <div class="sub-tabs">
+      <button class="sub-tab active" onclick="showSub('grow')">📈 増量プラン</button>
+      <button class="sub-tab" onclick="showSub('week')">📅 週間設定</button>
+      <button class="sub-tab" onclick="showSub('day')">🗓 日別献立</button>
+    </div>
+
+    <!-- SUB: 増量プラン -->
+    <div id="sub-grow" class="sub-content show">
+      <div class="card card-pad">
+        <div class="card-title">📈 増量プランを作成する</div>
+        <div style="font-size:12px;color:#888;margin-bottom:12px;">目標体重と期間を入力すると、増量のための食事プランを自動生成します</div>
+        <div class="grow-input-grid">
+          <div class="grow-input-item">
+            <label>現在の体重（kg）</label>
+            <input type="number" id="g-now" value="65" min="40" max="120" step="0.1">
+          </div>
+          <div class="grow-input-item">
+            <label>目標体重（kg）</label>
+            <input type="number" id="g-goal" value="70" min="40" max="120" step="0.1">
+          </div>
+          <div class="grow-input-item">
+            <label>年齢</label>
+            <select id="g-age">
+              <option value="31">12〜14歳</option>
+              <option value="27" selected>15〜17歳</option>
+            </select>
+          </div>
+          <div class="grow-input-item">
+            <label>増量期間</label>
+            <select id="g-months">
+              <option value="1">1ヶ月</option>
+              <option value="2">2ヶ月</option>
+              <option value="3" selected>3ヶ月</option>
+              <option value="4">4ヶ月</option>
+              <option value="5">5ヶ月</option>
+              <option value="6">6ヶ月</option>
+            </select>
+          </div>
+        </div>
+        <div class="grow-input-grid">
+          <div class="grow-input-item">
+            <label>体脂肪率（%）※わかれば</label>
+            <input type="number" id="g-fat" value="15" min="5" max="40" step="0.1">
+          </div>
+          <div class="grow-input-item">
+            <label>目標体脂肪率（%）</label>
+            <input type="number" id="g-fatgoal" value="15" min="5" max="40" step="0.1">
+          </div>
+        </div>
+        <button class="gen-btn" onclick="generateGrow()">💪 増量プランを作成する</button>
+      </div>
+      <div class="grow-result" id="growResult">
+        <div id="growContent"></div>
+      </div>
+    </div>
+
+    <!-- SUB: 週間設定 -->
+    <div id="sub-week" class="sub-content">
+      <div class="card card-pad">
+        <div class="card-title">📅 今週のスケジュールを入力する</div>
+        <div style="font-size:12px;color:#666;margin-bottom:10px;">各曜日の日付とその日の種類を選んでください</div>
+        <div class="plan-week-row" id="planWeekRow"></div>
+        <button class="gen-btn" onclick="generatePlan()">⚾ この週の献立を作成する</button>
+      </div>
+      <div class="plan-result" id="planResult">
+        <div class="week-summary" id="weekSummary"></div>
+        <div id="planMeals"></div>
+        <button class="gen-shop-btn" onclick="showTab('shop')">🛒 買い物リストを見る</button>
+      </div>
+    </div>
+
+    <!-- SUB: 日別献立 -->
+    <div id="sub-day" class="sub-content">
+      <div class="day-grid" id="dayGrid"></div>
+      <div id="dayContent"></div>
+    </div>
   </div>
 
   <!-- TAB: Shopping -->
@@ -337,7 +491,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
 <script>
 // ===== パスワード設定 =====
 // ここを変更するとパスワードが変わります
-const CORRECT_PASSWORD = 'shuyu2026';
+var CORRECT_PASSWORD = 'shuyu2026';
 
 // セッション中はログイン状態を維持
 function tryLogin() {
@@ -348,7 +502,7 @@ function tryLogin() {
     document.getElementById('main-app').style.display = 'block';
     sessionStorage.setItem('auth', '1');
     calc();
-    showTab('calc');
+    showTab('main');
   } else {
     errEl.textContent = 'パスワードが違います。もう一度お試しください。';
     const inp = document.getElementById('pw-input');
@@ -359,13 +513,17 @@ function tryLogin() {
 }
 
 // ページを開いたとき、同じセッションならスキップ
-if (sessionStorage.getItem('auth') === '1') {
-  document.getElementById('pw-screen').style.display = 'none';
-  document.getElementById('main-app').style.display = 'block';
-}
+window.addEventListener('DOMContentLoaded', function() {
+  if (sessionStorage.getItem('auth') === '1') {
+    document.getElementById('pw-screen').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    calc();
+    showTab('main');
+  }
+});
 
 // ===== アプリ本体 =====
-const PROTEIN_SOURCES = [
+var PROTEIN_SOURCES = [
   { name: '鶏むね肉100g', g: 23 },
   { name: '鮭100g', g: 22 },
   { name: 'マグロ100g', g: 26 },
@@ -390,7 +548,7 @@ function calc() {
   }).join('');
 }
 
-const DAYS = [
+var DAYS = [
   { key:'mon', label:'月', typeLabel:'練習①', color:'#1D9E75', colorLight:'#e8f8f2' },
   { key:'tue', label:'火', typeLabel:'練習②', color:'#1D9E75', colorLight:'#e8f8f2' },
   { key:'wed', label:'水', typeLabel:'練習③', color:'#1D9E75', colorLight:'#e8f8f2' },
@@ -400,33 +558,33 @@ const DAYS = [
   { key:'sun', label:'日', typeLabel:'試合後', color:'#378ADD', colorLight:'#e8f3ff' }
 ];
 
-const MEALS = {
+var MEALS = {
   mon:{ info:'栄養バランスよく食べる日。脂肪分の多い肉・魚もOK。食材の種類（食材数）を多く意識して。', rules:[], carb:55, protein:25, fat:20, kcal:3200, meals:[
     { name:'朝食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'味噌汁（豆腐・ひじき）',note:'鉄分・食物繊維',cal:70},{n:'目玉焼き2個',note:'たんぱく質',cal:180},{n:'納豆1パック',note:'大豆たんぱく・発酵食品',cal:95},{n:'牛乳200ml',note:'カルシウム',cal:134}]},
-    { name:'昼食（定食スタイル）', items:[{n:'豚バラ炒飯（大盛り）',note:'脂質OK・炭水化物',cal:650},{n:'ひじきの煮物',note:'鉄分・ミネラル',cal:85},{n:'きのこ汁',note:'ビタミンD',cal:45}]},
+    { name:'お弁当（月）豚バラ弁当', items:[{n:'雑穀ご飯（大盛り）',note:'200g・エネルギー',cal:340},{n:'豚バラ炒め（生姜醤油）',note:'脂質・たんぱく質OK',cal:280},{n:'卵焼き',note:'たんぱく質',cal:120},{n:'ひじきの煮物',note:'鉄分・ミネラル',cal:85},{n:'ブロッコリー',note:'ビタミンC',cal:30},{n:'フルーツ（みかん等）',note:'ビタミン補給',cal:60}]},
     { name:'補食（練習1〜2時間前）', items:[{n:'おにぎり2個',note:'エネルギー補給',cal:360},{n:'バナナ1本',note:'カリウム・即効エネルギー',cal:86}]},
     { name:'夕食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'牛サーロインステーキ150g',note:'良質たんぱく質・鉄分',cal:380},{n:'ぶりの塩焼き',note:'DHA・EPA',cal:210},{n:'ごぼうきんぴら',note:'食物繊維',cal:110},{n:'ヨーグルト',note:'カルシウム・腸内環境',cal:90}]}
   ]},
   tue:{ info:'栄養バランスの日。調理時の油の使いすぎに注意。主食・主菜・副菜・果物・乳製品を揃える。', rules:[], carb:55, protein:25, fat:20, kcal:3200, meals:[
     { name:'朝食', items:[{n:'白米ご飯（大盛り）',note:'200g',cal:336},{n:'鮭の塩焼き',note:'たんぱく質・DHA・ビタミンB6',cal:175},{n:'卵焼き',note:'たんぱく質',cal:135},{n:'牛乳200ml',note:'カルシウム',cal:134},{n:'青菜のお浸し',note:'ビタミン・鉄分',cal:40}]},
-    { name:'昼食', items:[{n:'鶏むね肉の定食',note:'蒸し調理・低脂質',cal:420},{n:'五目ご飯（大盛り）',note:'野菜・きのこ',cal:380},{n:'豆腐と野菜の味噌汁',note:'具だくさん',cal:70}]},
+    { name:'お弁当（火）鶏むね弁当', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'鶏むね肉の照り焼き',note:'高たんぱく・低脂質',cal:220},{n:'ほうれん草のお浸し',note:'鉄分・葉酸',cal:40},{n:'かぼちゃの煮物',note:'β-カロテン',cal:90},{n:'納豆（小パック）',note:'ダブルたんぱく',cal:60},{n:'バナナ1本',note:'カリウム・エネルギー',cal:86}]},
     { name:'補食', items:[{n:'食パン2枚',note:'炭水化物',cal:264},{n:'チーズ1枚',note:'カルシウム',cal:70},{n:'オレンジジュース',note:'ビタミンC',cal:95}]},
     { name:'夕食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'豚ヒレ肉の生姜焼き',note:'脂質少なめ・ビタミンB1',cal:320},{n:'かぼちゃの煮物',note:'β-カロテン・ビタミンC',cal:115},{n:'豆腐サラダ',note:'大豆たんぱく',cal:120},{n:'牛乳',note:'カルシウム',cal:134}]}
   ]},
   wed:{ info:'試合前々日。栄養バランスを保ちながら、夕食から炭水化物の比率を少し上げてグリコーゲン蓄積を準備。', rules:[], carb:58, protein:24, fat:18, kcal:3300, meals:[
     { name:'朝食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'目玉焼き2個',note:'たんぱく質',cal:180},{n:'豚汁（根菜たっぷり）',note:'ビタミンB1・食物繊維',cal:145},{n:'牛乳',note:'カルシウム',cal:134}]},
-    { name:'昼食', items:[{n:'カツ丼（大盛り）',note:'たんぱく質・炭水化物',cal:720},{n:'野菜サラダ',note:'ドレッシング少なめ',cal:80},{n:'味噌汁',note:'水分・ミネラル',cal:45}]},
+    { name:'お弁当（水）豚カツ弁当', items:[{n:'白米ご飯（大盛り）',note:'250g・グリコーゲン準備開始',cal:420},{n:'豚ヒレカツ',note:'低脂質・高たんぱく',cal:280},{n:'キャベツの千切り',note:'ビタミンC',cal:20},{n:'卵焼き',note:'たんぱく質',cal:120},{n:'ミニトマト',note:'リコピン・ビタミン',cal:20},{n:'オレンジ',note:'ビタミンC',cal:45}]},
     { name:'補食', items:[{n:'おにぎり2個（鮭・梅）',note:'エネルギー補給',cal:360},{n:'野菜ジュース',note:'ビタミン',cal:75}]},
     { name:'夕食（炭水化物UP開始）', items:[{n:'白米ご飯（大盛り）',note:'250g・明日に向けて増量',cal:420},{n:'マグロの刺身',note:'DHA・ビタミンB6',cal:180},{n:'じゃがいもの煮物',note:'炭水化物追加',cal:150},{n:'ほうれん草お浸し',note:'鉄分・葉酸',cal:40},{n:'ヨーグルト',note:'腸内環境',cal:90}]}
   ]},
   thu:{ info:'オフ日。疲労回復に集中。消化の良いものを選んで好きなものを食べてOK。脂っこいものは控えめに。', rules:[], carb:50, protein:25, fat:25, kcal:2600, meals:[
     { name:'朝食', items:[{n:'白米ご飯（普通盛り）',note:'消化に優しい',cal:252},{n:'温泉卵',note:'消化しやすいたんぱく質',cal:80},{n:'野菜スープ',note:'疲労回復・ビタミン',cal:90},{n:'牛乳',note:'カルシウム',cal:134}]},
-    { name:'昼食', items:[{n:'好きなランチ',note:'脂っこすぎないものを選ぶ',cal:700},{n:'フルーツ',note:'ビタミンC・疲労回復',cal:100}]},
+    { name:'お弁当不要（オフ日）', items:[{n:'外食または自由食',note:'脂っこすぎないものを選ぶ',cal:700},{n:'フルーツ',note:'ビタミンC・疲労回復',cal:100}]},
     { name:'夕食', items:[{n:'白米ご飯（普通盛り）',note:'200g',cal:252},{n:'鶏鍋（水炊き）',note:'消化よく疲労回復',cal:380},{n:'うどん（締め）',note:'炭水化物補給',cal:240},{n:'フルーツヨーグルト',note:'ビタミン・乳酸菌',cal:150}]}
   ]},
   fri:{ info:'試合前日！グリコーゲンローディング本格開始。炭水化物（糖質）の比率を高め、脂質・食物繊維は控えめに。消化の良いものを選ぶ。', rules:[], carb:65, protein:20, fat:15, kcal:3400, meals:[
     { name:'朝食', items:[{n:'白米ご飯（大盛り）',note:'250g・糖質重点',cal:420},{n:'卵焼き',note:'消化よいたんぱく質',cal:135},{n:'味噌汁（具少なめ）',note:'水分・ミネラル',cal:45},{n:'バナナ1本',note:'即効グリコーゲン補給',cal:86}]},
-    { name:'昼食', items:[{n:'白米ご飯（大盛り）',note:'250g',cal:420},{n:'赤身肉の焼き（脂少ない部位）',note:'消化よいたんぱく質',cal:280},{n:'うどん',note:'炭水化物追加',cal:240},{n:'じゃがいもスープ',note:'食物繊維少なめ',cal:80}]},
+    { name:'お弁当（金）グリコーゲン弁当', items:[{n:'白米ご飯（大盛り）',note:'250g・糖質重点',cal:420},{n:'鮭の塩焼き',note:'消化よいたんぱく質・DHA',cal:175},{n:'卵焼き（甘め）',note:'たんぱく質',cal:120},{n:'じゃがいもの煮物',note:'炭水化物プラス',cal:100},{n:'バナナ1本',note:'グリコーゲン追加',cal:86},{n:'スポーツドリンク',note:'水分・電解質',cal:120}]},
     { name:'補食（グリコーゲン追加）', items:[{n:'おにぎり3個',note:'炭水化物たっぷり',cal:540},{n:'スポーツドリンク',note:'糖質＋水分',cal:120}]},
     { name:'夕食（軽め・消化重視）', items:[{n:'白米ご飯（大盛り）',note:'250g',cal:420},{n:'蒸し鶏むね肉',note:'消化よい・低脂質',cal:200},{n:'じゃがいも煮',note:'炭水化物プラス',cal:150},{n:'バナナ',note:'就寝前グリコーゲン',cal:86}]}
   ]},
@@ -438,12 +596,12 @@ const MEALS = {
   ]},
   sun:{ info:'試合後・リカバリー日。たんぱく質をしっかり摂る。糖質・緑黄色野菜・水分も意識。好きなものを食べてOK。', rules:[], carb:55, protein:25, fat:20, kcal:3000, meals:[
     { name:'朝食', items:[{n:'白米ご飯（普通盛り）',note:'200g',cal:336},{n:'卵料理（好みで）',note:'たんぱく質',cal:150},{n:'野菜スープ',note:'ビタミン補給',cal:90},{n:'フルーツ',note:'ビタミンC',cal:100}]},
-    { name:'昼食', items:[{n:'好きなもの（定食スタイル推奨）',note:'脂っこすぎないものを',cal:750},{n:'フルーツジュース',note:'ビタミンC補給',cal:120}]},
+    { name:'昼食（外食またはお弁当）', items:[{n:'好きなもの（定食スタイル推奨）',note:'たんぱく質多め・脂っこすぎないものを',cal:750},{n:'フルーツジュース or フルーツ',note:'ビタミンC補給・疲労回復',cal:120}]},
     { name:'夕食', items:[{n:'白米ご飯（大盛り）',note:'回復のための糖質',cal:336},{n:'好きな主菜',note:'たんぱく質多めで疲労回復',cal:400},{n:'緑黄色野菜の副菜',note:'ミネラル・ビタミン',cal:100},{n:'ヨーグルト＋フルーツ',note:'腸内環境・ビタミンC',cal:180}]}
   ]}
 };
 
-const SHOPPING = {
+var SHOPPING = {
   '穀類・主食 🌾': ['白米 5kg', '雑穀ミックス', '食パン 2斤', 'うどん（乾麺）', 'おにぎり用のり', 'バナナ 3房'],
   '肉類 🥩': ['豚バラ肉 300g', '豚ヒレ肉 300g', '牛サーロイン 200g', '赤身牛肉 300g', '鶏むね肉 600g', '鶏もも肉 400g'],
   '魚・海鮮 🐟': ['鮭切り身 6切', 'ぶり切り身 4切', 'アジ 4尾', 'マグロ（刺身用）200g', 'カツオたたき'],
@@ -455,21 +613,38 @@ const SHOPPING = {
   '調味料 🧴': ['味噌 500g', 'オリーブオイル', '醤油', 'みりん', 'はちみつ']
 };
 
-let curDay = 'mon';
-let checked = {};
+var curDay = 'mon';
+var checked = {};
 
-const TAB_IDS = ['calc','menu','shop','water','tips'];
+var TAB_IDS = ['main','calc','shop','water','tips'];
 
 function showTab(t) {
   TAB_IDS.forEach(id => {
     const el = document.getElementById('tab-' + id);
-    el.className = id === t ? (id === 'menu' ? '' : 'pad') : (id === 'menu' ? 'hidden' : 'pad hidden');
+    if (!el) return;
+    el.className = 'pad hidden';
   });
+  const active = document.getElementById('tab-' + t);
+  if (active) active.className = t === 'main' ? 'pad' : 'pad';
   document.querySelectorAll('.tab').forEach((el, i) => {
     el.className = 'tab' + (TAB_IDS[i] === t ? ' active' : '');
   });
-  if (t === 'menu') { renderDayGrid(); renderDay(); }
   if (t === 'shop') renderShop();
+  if (t === 'main') { initPlanWeek(); }
+}
+
+function showSub(s) {
+  var subs = ['grow','week','day'];
+  for (var i = 0; i < subs.length; i++) {
+    var el = document.getElementById('sub-' + subs[i]);
+    if (el) el.className = 'sub-content' + (subs[i] === s ? ' show' : '');
+  }
+  var stabs = document.querySelectorAll('.sub-tab');
+  for (var j = 0; j < stabs.length; j++) {
+    stabs[j].className = 'sub-tab' + (subs[j] === s ? ' active' : '');
+  }
+  if (s === 'day') { renderDayGrid(); renderDay(); }
+  if (s === 'week') { initPlanWeek(); }
 }
 
 function renderDayGrid() {
@@ -505,6 +680,454 @@ function renderShop() {
 }
 
 function toggleShop(key,el) { checked[key]=!checked[key]; el.classList.toggle('done',checked[key]); }
+
+
+// ===== GROW PLANNER =====
+var GROW_RECIPES_FIXED = {
+  high: {
+    breakfast: [
+      { title:'増量朝食①｜鉄板ガッツリ朝ごはん', color:'#EF9F27', items:[
+        {tag:'主食', text:'雑穀ご飯 250g（大盛り）', note:'炭水化物の要'},
+        {tag:'主菜', text:'豚バラと卵の炒め物', note:'豚バラ80g＋卵2個・ビタミンB1'},
+        {tag:'副菜', text:'納豆1パック＋牛乳200ml', note:'ダブルたんぱく・カルシウム'},
+        {tag:'果物', text:'バナナ1本', note:'カリウム・即効エネルギー'},
+      ]},
+      { title:'増量朝食②｜チーズ卵トースト定食', color:'#EF9F27', items:[
+        {tag:'主食', text:'食パン3枚（チーズトースト）', note:'炭水化物＋カルシウム'},
+        {tag:'主菜', text:'スクランブルエッグ（卵3個）', note:'高たんぱく・良質脂質'},
+        {tag:'副菜', text:'野菜スープ＋ヨーグルト150g', note:'ビタミン・乳酸菌'},
+        {tag:'果物', text:'オレンジ1個', note:'ビタミンC・鉄分吸収UP'},
+      ]},
+    ],
+    snack: [
+      { title:'練習前補食｜パワーチャージセット', color:'#1D9E75', items:[
+        {tag:'炭水化物', text:'おにぎり2〜3個（鮭・ツナ・昆布）', note:'エネルギー補給の定番'},
+        {tag:'たんぱく', text:'プロテインドリンク or 牛乳200ml', note:'筋肉合成をサポート'},
+        {tag:'果物', text:'バナナ1本', note:'カリウム補給'},
+      ]},
+      { title:'練習後補食｜リカバリーセット', color:'#1D9E75', items:[
+        {tag:'炭水化物', text:'おにぎり2個', note:'30分以内に糖質補給'},
+        {tag:'たんぱく', text:'サラダチキン or ゆで卵2個', note:'筋肉修復'},
+        {tag:'ビタミン', text:'グレープフルーツ or みかん', note:'ビタミンC・疲労回復'},
+      ]},
+    ],
+    dinner: [
+      { title:'増量夕食①｜牛肉ステーキ定食', color:'#D85A30', items:[
+        {tag:'主食', text:'雑穀ご飯 250g', note:'しっかり糖質補給'},
+        {tag:'主菜', text:'牛もも肉ステーキ 150g', note:'鉄分・亜鉛・良質たんぱく'},
+        {tag:'副菜①', text:'ほうれん草のバターソテー', note:'鉄分・ビタミンA'},
+        {tag:'副菜②', text:'かぼちゃの煮物', note:'β-カロテン・炭水化物プラス'},
+        {tag:'汁物', text:'豚汁（根菜たっぷり）', note:'ビタミンB1・食物繊維'},
+        {tag:'締め', text:'ヨーグルト＋はちみつ', note:'就寝前たんぱく質補給'},
+      ]},
+      { title:'増量夕食②｜鶏もも照り焼き定食', color:'#D85A30', items:[
+        {tag:'主食', text:'雑穀ご飯 250g', note:'炭水化物しっかり'},
+        {tag:'主菜', text:'鶏もも照り焼き 180g', note:'皮つきで脂質もOK・高たんぱく'},
+        {tag:'副菜①', text:'じゃがいもの煮物', note:'炭水化物追加・ビタミンC'},
+        {tag:'副菜②', text:'ひじきと大豆の煮物', note:'鉄分・カルシウム・植物性たんぱく'},
+        {tag:'汁物', text:'豆腐と野菜の味噌汁', note:'イソフラボン・消化よい'},
+        {tag:'締め', text:'牛乳200ml', note:'就寝前カルシウム補給'},
+      ]},
+      { title:'増量夕食③｜マグロ丼定食', color:'#D85A30', items:[
+        {tag:'主食', text:'雑穀ご飯 250g', note:'炭水化物'},
+        {tag:'主菜', text:'マグロとアボカドの丼', note:'DHA・良質脂質・ビタミンB6'},
+        {tag:'副菜①', text:'冷奴（豆腐100g）', note:'大豆たんぱく・イソフラボン'},
+        {tag:'副菜②', text:'わかめと卵のスープ', note:'ミネラル・ビタミン'},
+        {tag:'締め', text:'ヨーグルト＋バナナ', note:'乳酸菌・カリウム'},
+      ]},
+    ]
+  },
+  mid: {
+    breakfast: [
+      { title:'増量朝食｜バランス朝ごはん', color:'#EF9F27', items:[
+        {tag:'主食', text:'雑穀ご飯 200g', note:'炭水化物の要'},
+        {tag:'主菜', text:'鮭の塩焼き＋卵焼き', note:'DHA・たんぱく質'},
+        {tag:'副菜', text:'納豆1パック', note:'ダブルたんぱく'},
+        {tag:'汁物', text:'味噌汁（豆腐・わかめ）', note:'ミネラル補給'},
+        {tag:'乳製品', text:'牛乳200ml', note:'カルシウム補給'},
+      ]},
+    ],
+    snack: [
+      { title:'補食｜おにぎり＋バナナセット', color:'#1D9E75', items:[
+        {tag:'主食', text:'おにぎり2個（梅・鮭）', note:'エネルギー補給'},
+        {tag:'果物', text:'バナナ1本', note:'即効エネルギー'},
+        {tag:'飲み物', text:'牛乳200ml', note:'カルシウム・たんぱく質'},
+      ]},
+    ],
+    dinner: [
+      { title:'増量夕食｜豚ヒレ定食', color:'#D85A30', items:[
+        {tag:'主食', text:'雑穀ご飯 200g', note:'炭水化物'},
+        {tag:'主菜', text:'豚ヒレ肉の生姜焼き 120g', note:'脂質控えめ・高たんぱく'},
+        {tag:'副菜①', text:'青菜のお浸し', note:'鉄分・葉酸'},
+        {tag:'副菜②', text:'かぼちゃのそぼろ煮', note:'β-カロテン・たんぱく質'},
+        {tag:'汁物', text:'具だくさん味噌汁', note:'ビタミン・ミネラル'},
+        {tag:'乳製品', text:'ヨーグルト', note:'カルシウム・乳酸菌'},
+      ]},
+    ]
+  }
+};
+
+function generateGrow() {
+  const now = parseFloat(document.getElementById('g-now').value) || 65;
+  const goal = parseFloat(document.getElementById('g-goal').value) || 70;
+  const age = parseFloat(document.getElementById('g-age').value) || 27;
+  const months = parseInt(document.getElementById('g-months').value) || 3;
+  const fatPct = parseFloat(document.getElementById('g-fat').value) || 15;
+  const fatGoal = parseFloat(document.getElementById('g-fatgoal').value) || 15;
+
+  const diff = goal - now;
+  if (diff <= 0) {
+    alert('目標体重は現在の体重より大きく設定してください。');
+    return;
+  }
+
+  // Calculations
+  const perMonth = diff / months;
+  const baseKcal = Math.round(now * age * 2.0);
+  // 1kg増量に約7000kcal余分に必要（筋肉増量想定）
+  const extraKcalPerDay = Math.round((perMonth * 7000) / 30);
+  const totalKcal = baseKcal + extraKcalPerDay;
+  const proteinG = Math.round(now * 1.8);
+  // muscle gain target
+  const muscleGain = Math.round(diff * (1 - (fatGoal - fatPct) / 100 * 0.5) * 10) / 10;
+
+  const isAggressive = extraKcalPerDay >= 400;
+  const recipes = isAggressive ? GROW_RECIPES_FIXED.high : GROW_RECIPES_FIXED.mid;
+
+  // Warning check
+  let warning = '';
+  if (perMonth > 1.5) {
+    warning = '<div class="grow-alert" style="background:#fff0eb;border:1px solid #D85A30;color:#7a2a10;">⚠️ <strong>月'+perMonth.toFixed(1)+'kgは少し速いペースです。</strong>月1〜1.5kgが筋肉増量の理想ペース。体脂肪が増えすぎる可能性があります。期間を延ばすか目標を下げることをおすすめします。</div>';
+  } else if (perMonth < 0.5) {
+    warning = '<div class="grow-alert" style="background:#e8f3ff;border:1px solid #378ADD;color:#0c447c;">💡 月'+perMonth.toFixed(1)+'kgはゆっくりペースです。体脂肪を増やさずに増量できるので、パフォーマンス重視の選手に向いています。</div>';
+  }
+
+  // Phase bar
+  const phaseColors = ['#1D9E75','#EF9F27','#D85A30'];
+  const phases = months <= 2
+    ? [{ label:'増量期', w: 1, color: '#D85A30' }]
+    : [
+        { label:'準備期（'+Math.ceil(months*0.2)+'ヶ月）', w: 0.2, color: '#1D9E75' },
+        { label:'増量期（'+Math.floor(months*0.6)+'ヶ月）', w: 0.6, color: '#D85A30' },
+        { label:'仕上期（'+Math.ceil(months*0.2)+'ヶ月）', w: 0.2, color: '#378ADD' }
+      ];
+
+  const phaseBar = '<div class="grow-phase-bar">' +
+    phases.map(p =>
+      '<div class="grow-phase-item" style="flex:'+p.w+';background:'+p.color+'20;border:1px solid '+p.color+';color:'+p.color+';">'+p.label+'</div>'
+    ).join('') + '</div>';
+
+  // Stats
+  const stats = '<div class="grow-stat-grid">' +
+    '<div class="grow-stat"><div class="grow-stat-num">'+totalKcal.toLocaleString()+'</div><div class="grow-stat-unit">kcal/日</div><div class="grow-stat-label">目標カロリー</div></div>' +
+    '<div class="grow-stat"><div class="grow-stat-num">'+proteinG+'</div><div class="grow-stat-unit">g/日</div><div class="grow-stat-label">たんぱく質目標</div></div>' +
+    '<div class="grow-stat"><div class="grow-stat-num">+'+extraKcalPerDay+'</div><div class="grow-stat-unit">kcal/日</div><div class="grow-stat-label">増量分の上乗せ</div></div>' +
+  '</div>';
+
+  // Monthly progress
+  let monthlyHtml = '<p style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:8px;">📅 月別目標体重</p>';
+  for (let m = 1; m <= months; m++) {
+    const targetW = (now + perMonth * m).toFixed(1);
+    const pct = Math.round((m / months) * 100);
+    monthlyHtml += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">' +
+      '<span style="font-size:11px;color:#666;width:50px;">'+m+'ヶ月目</span>' +
+      '<div style="flex:1;height:8px;background:#ebebeb;border-radius:4px;overflow:hidden;">' +
+        '<div style="width:'+pct+'%;height:100%;background:#1D9E75;border-radius:4px;"></div>' +
+      '</div>' +
+      '<span style="font-size:12px;font-weight:600;color:#1D9E75;width:50px;text-align:right;">'+targetW+'kg</span>' +
+    '</div>';
+  }
+
+  // Recipe cards
+  function recipeCard(r) {
+    return '<div class="grow-recipe-card">' +
+      '<div class="grow-recipe-hdr" style="background:'+(r.color||'#1D9E75')+'15;color:'+(r.color||'#1D9E75')+';">🍽 '+r.title+'</div>' +
+      '<div class="grow-recipe-body">' +
+      r.items.map(item =>
+        '<div class="grow-recipe-item"><span class="grow-recipe-tag" style="color:'+(r.color||'#1D9E75')+';">'+item.tag+'</span><div><div>'+item.text+'</div><div style="font-size:10px;color:#888;">'+item.note+'</div></div></div>'
+      ).join('') +
+      '</div></div>';
+  }
+
+  // Build full content
+  let html = warning + phaseBar + stats;
+
+  html += '<div class="card card-pad" style="margin-bottom:0.8rem;">' + monthlyHtml + '</div>';
+
+  // Nutrition balance guidance
+  const carbPct = isAggressive ? 58 : 55;
+  const protPct = isAggressive ? 22 : 25;
+  const fatPct2 = isAggressive ? 20 : 20;
+  html += '<div class="card card-pad" style="margin-bottom:0.8rem;">' +
+    '<div class="card-title">推奨栄養バランス</div>' +
+    '<div class="macro-row"><span class="macro-label">炭水化物</span><div class="macro-bar-bg"><div class="macro-bar-fill bc" style="width:'+carbPct+'%"></div></div><span class="macro-val">'+carbPct+'%</span></div>' +
+    '<div class="macro-row"><span class="macro-label">たんぱく質</span><div class="macro-bar-bg"><div class="macro-bar-fill bp" style="width:'+protPct+'%"></div></div><span class="macro-val">'+protPct+'%</span></div>' +
+    '<div class="macro-row"><span class="macro-label">脂質</span><div class="macro-bar-bg"><div class="macro-bar-fill bf" style="width:'+fatPct2+'%"></div></div><span class="macro-val">'+fatPct2+'%</span></div>' +
+    '<div class="note-box" style="margin-top:8px;">体脂肪を増やさず筋肉を増やすには<strong>ビタミン・ミネラルが必須</strong>。毎食「ちょい足し小鉢」と「具だくさん汁物」「フルーツ」を意識して。</div>' +
+  '</div>';
+
+  html += '<div style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:8px;">🌅 朝食レシピ（ローテーション）</div>';
+  recipes.breakfast.forEach(r => { html += recipeCard(r); });
+
+  html += '<div style="font-size:13px;font-weight:600;color:#1a1a1a;margin:12px 0 8px;">⚡ 補食レシピ（練習前後）</div>';
+  recipes.snack.forEach(r => { html += recipeCard(r); });
+
+  html += '<div style="font-size:13px;font-weight:600;color:#1a1a1a;margin:12px 0 8px;">🌙 夕食レシピ（ローテーション）</div>';
+  recipes.dinner.forEach(r => { html += recipeCard(r); });
+
+  // Key nutrients for muscle gain
+  html += '<div class="card card-pad" style="margin-top:0.5rem;">' +
+    '<div class="card-title">増量に特に重要な栄養素</div>' +
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">' +
+    '<div class="nutri-item" style="border-color:#5DCAA5;background:#e8f8f2;"><div class="nutri-name" style="color:#0a5c3f;">亜鉛</div><div class="nutri-foods">牡蠣・牛肉・カツオ・納豆。筋肉合成・成長ホルモンに必須</div></div>' +
+    '<div class="nutri-item" style="border-color:#85B7EB;background:#e8f3ff;"><div class="nutri-name" style="color:#0c447c;">ビタミンD</div><div class="nutri-foods">鮭・きのこ・日光。カルシウム吸収＋筋力UP</div></div>' +
+    '<div class="nutri-item" style="border-color:#FAC775;background:#fff8e1;"><div class="nutri-name" style="color:#633806;">ビタミンB6</div><div class="nutri-foods">マグロ・カツオ・鶏むね。たんぱく質代謝に必須</div></div>' +
+    '<div class="nutri-item" style="border-color:#C0DD97;background:#f0f8e8;"><div class="nutri-name" style="color:#27500A;">鉄分</div><div class="nutri-foods">赤身肉・ひじき・ほうれん草。筋肉への酸素供給</div></div>' +
+    '</div></div>';
+
+  document.getElementById('growContent').innerHTML = html;
+  document.getElementById('growResult').className = 'grow-result show';
+  document.getElementById('growResult').scrollIntoView({behavior:'smooth'});
+}
+
+// ===== WEEKLY PLANNER =====
+var DAY_NAMES = ['月','火','水','木','金','土','日'];
+var TYPE_OPTIONS = [
+  { val:'practice', label:'練習', color:'#1D9E75', light:'#e8f8f2', cls:'t-practice' },
+  { val:'off',      label:'オフ', color:'#888780', light:'#f1efea', cls:'t-off' },
+  { val:'pre',      label:'試合前日', color:'#EF9F27', light:'#fff8e1', cls:'t-pre' },
+  { val:'game',     label:'試合',  color:'#D85A30', light:'#fff0eb', cls:'t-game' },
+  { val:'postgame', label:'試合後', color:'#378ADD', light:'#e8f3ff', cls:'t-postgame' }
+];
+
+// Get Monday of current week
+function getMondayOfWeek() {
+  const today = new Date();
+  const d = new Date(today);
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  d.setDate(diff);
+  return d;
+}
+
+function fmt(d) {
+  return (d.getMonth()+1) + '/' + d.getDate();
+}
+
+function initPlanWeek() {
+  var monday = getMondayOfWeek();
+  var row = document.getElementById('planWeekRow');
+  if (!row) return;
+  var defaultTypes = ['practice','practice','practice','off','pre','game','postgame'];
+  var html = '';
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    var dateStr = fmt(d);
+    var opts = '';
+    for (var j = 0; j < TYPE_OPTIONS.length; j++) {
+      var t = TYPE_OPTIONS[j];
+      opts += '<option value="' + t.val + '"' + (defaultTypes[i] === t.val ? ' selected' : '') + '>' + t.label + '</option>';
+    }
+    html += '<div class="plan-day-cell">' +
+      '<div class="plan-day-name">' + DAY_NAMES[i] + '</div>' +
+      '<input class="plan-date-inp" id="pdate' + i + '" value="' + dateStr + '" placeholder="M/D">' +
+      '<select class="plan-type-sel" id="ptype' + i + '" onchange="updateSelColor(' + i + ')">' + opts + '</select>' +
+    '</div>';
+  }
+  row.innerHTML = html;
+  for (var k = 0; k < 7; k++) updateSelColor(k);
+}
+
+function updateSelColor(i) {
+  const sel = document.getElementById('ptype'+i);
+  if (!sel) return;
+  const t = TYPE_OPTIONS.find(t=>t.val===sel.value);
+  sel.className = 'plan-type-sel ' + (t ? t.cls : '');
+}
+
+var MEAL_DATA = {
+  practice: {
+    label:'練習日', carb:55, protein:25, fat:20, kcal:3200,
+    meals:[
+      {name:'朝食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'味噌汁（豆腐・ひじき）',note:'鉄分',cal:70},{n:'目玉焼き2個',note:'たんぱく質',cal:180},{n:'納豆1パック',note:'大豆たんぱく',cal:95},{n:'牛乳200ml',note:'カルシウム',cal:134}]},
+      {name:'お弁当（練習日）', items:[{n:'雑穀ご飯（大盛り）',note:'200g・エネルギー',cal:340},{n:'主菜（肉・魚）しっかり目',note:'鶏照り焼き・豚炒め・鮭など',cal:280},{n:'卵焼き',note:'たんぱく質',cal:120},{n:'副菜2品（野菜・海藻）',note:'ひじき・お浸し・煮物など',cal:100},{n:'フルーツ',note:'ビタミンC補給',cal:60}]},
+      {name:'補食（練習1〜2時間前）', items:[{n:'おにぎり2個',note:'エネルギー補給',cal:360},{n:'バナナ1本',note:'即効エネルギー',cal:86}]},
+      {name:'夕食', items:[{n:'雑穀ご飯（大盛り）',note:'200g',cal:340},{n:'主菜（肉・魚）',note:'たんぱく質・脂質OK',cal:350},{n:'副菜2品',note:'ビタミン・ミネラル',cal:150},{n:'ヨーグルト',note:'カルシウム・腸内環境',cal:90}]}
+    ],
+    shopItems:['白米・雑穀ミックス','納豆','卵','牛乳','ヨーグルト','おにぎり食材','バナナ','肉・魚（主菜用）','野菜・きのこ（副菜用）','豆腐・ひじき']
+  },
+  off: {
+    label:'オフ日', carb:50, protein:25, fat:25, kcal:2600,
+    meals:[
+      {name:'朝食', items:[{n:'白米ご飯（普通盛り）',note:'消化に優しい',cal:252},{n:'温泉卵',note:'消化しやすいたんぱく質',cal:80},{n:'野菜スープ',note:'疲労回復・ビタミン',cal:90},{n:'牛乳',note:'カルシウム',cal:134}]},
+      {name:'昼食（オフ日・弁当不要）', items:[{n:'外食または自由食',note:'脂っこすぎないものを選ぶ',cal:700},{n:'フルーツ',note:'ビタミンC・疲労回復',cal:100}]},
+      {name:'夕食', items:[{n:'白米ご飯（普通盛り）',note:'200g',cal:252},{n:'消化の良い主菜',note:'鍋・蒸し物など',cal:380},{n:'副菜',note:'野菜中心',cal:150},{n:'フルーツヨーグルト',note:'ビタミン・乳酸菌',cal:150}]}
+    ],
+    shopItems:['白米','卵','牛乳','ヨーグルト','フルーツ','消化の良い肉・魚','野菜']
+  },
+  pre: {
+    label:'試合前日', carb:65, protein:20, fat:15, kcal:3400,
+    meals:[
+      {name:'朝食', items:[{n:'白米ご飯（大盛り）',note:'250g・糖質重点',cal:420},{n:'卵焼き',note:'消化よいたんぱく質',cal:135},{n:'味噌汁（具少なめ）',note:'水分',cal:45},{n:'バナナ1本',note:'即効グリコーゲン',cal:86}]},
+      {name:'お弁当（試合前日）グリコーゲン弁当', items:[{n:'白米ご飯（大盛り）',note:'250g・糖質たっぷり',cal:420},{n:'鮭の塩焼き or 赤身肉',note:'消化よいたんぱく質',cal:220},{n:'卵焼き（甘め）',note:'たんぱく質',cal:120},{n:'じゃがいもの煮物',note:'炭水化物追加・食物繊維少なめ',cal:100},{n:'バナナ',note:'グリコーゲン追加',cal:86}]},
+      {name:'補食', items:[{n:'おにぎり3個',note:'炭水化物たっぷり',cal:540},{n:'スポーツドリンク',note:'糖質＋水分',cal:120}]},
+      {name:'夕食（消化重視）', items:[{n:'白米ご飯（大盛り）',note:'250g',cal:420},{n:'蒸し鶏むね肉',note:'消化よい・低脂質',cal:200},{n:'じゃがいも煮',note:'炭水化物プラス',cal:150},{n:'バナナ',note:'就寝前グリコーゲン',cal:86}]}
+    ],
+    shopItems:['白米（多め）','バナナ（多め）','うどん','おにぎり食材（多め）','スポーツドリンク','赤身肉','鶏むね肉','じゃがいも']
+  },
+  game: {
+    label:'試合日', carb:70, protein:20, fat:10, kcal:3600,
+    meals:[
+      {name:'朝食（試合3〜4時間前）', items:[{n:'白米ご飯（大盛り）',note:'300g・糖質メイン',cal:504},{n:'卵焼き（薄め）',note:'消化よいたんぱく質',cal:100},{n:'バナナ2本',note:'即効エネルギー',cal:172},{n:'スポーツドリンク500ml',note:'水分・電解質',cal:120}]},
+      {name:'試合中補食', items:[{n:'おにぎり（梅・塩）',note:'イニング間に',cal:180},{n:'バナナ',note:'素早いエネルギー',cal:86},{n:'エネルギーゼリー',note:'素早い糖質',cal:100},{n:'スポーツドリンク',note:'15〜20分おきに',cal:120}]},
+      {name:'試合後補食（30分以内！）', items:[{n:'おにぎり2個',note:'糖質補給',cal:360},{n:'鮭おにぎり',note:'たんぱく質＋糖質',cal:200},{n:'グレープフルーツ',note:'ビタミンC・疲労回復',cal:55},{n:'牛乳 or プロテイン',note:'筋肉修復',cal:160}]},
+      {name:'夕食（次の試合を意識）', items:[{n:'白米ご飯（大盛り）',note:'250g',cal:420},{n:'鮭の塩焼き',note:'たんぱく質',cal:175},{n:'かぼちゃ煮',note:'β-カロテン',cal:115},{n:'グレープフルーツ',note:'ビタミンC',cal:55}]}
+    ],
+    shopItems:['白米（多め）','バナナ（多め）','おにぎり食材（多め）','スポーツドリンク（多め）','エネルギーゼリー','卵','鮭','グレープフルーツ','牛乳 or プロテイン']
+  },
+  postgame: {
+    label:'試合後', carb:55, protein:25, fat:20, kcal:3000,
+    meals:[
+      {name:'朝食', items:[{n:'白米ご飯（普通盛り）',note:'200g',cal:336},{n:'卵料理（好みで）',note:'たんぱく質',cal:150},{n:'野菜スープ',note:'ビタミン補給',cal:90},{n:'フルーツ',note:'ビタミンC',cal:100}]},
+      {name:'昼食（試合後・外食OK）', items:[{n:'好きなもの（定食スタイル推奨）',note:'たんぱく質多め・脂っこすぎないものを',cal:750},{n:'フルーツ or フルーツジュース',note:'ビタミンC・疲労回復',cal:120}]},
+      {name:'夕食', items:[{n:'白米ご飯（大盛り）',note:'回復のための糖質',cal:336},{n:'好きな主菜',note:'たんぱく質多めで',cal:400},{n:'緑黄色野菜の副菜',note:'ミネラル・ビタミン',cal:100},{n:'ヨーグルト＋フルーツ',note:'腸内環境・ビタミンC',cal:180}]}
+    ],
+    shopItems:['白米','卵','ヨーグルト','フルーツ（柑橘類）','野菜（緑黄色）','好きな主菜食材']
+  }
+};
+
+var TYPE_INFO = {
+  practice: { color:'#1D9E75', light:'#e8f8f2' },
+  off:      { color:'#888780', light:'#f1efea' },
+  pre:      { color:'#EF9F27', light:'#fff8e1' },
+  game:     { color:'#D85A30', light:'#fff0eb' },
+  postgame: { color:'#378ADD', light:'#e8f3ff' }
+};
+
+var planChecked = {};
+
+function generatePlan() {
+  var days = [];
+  for (var i = 0; i < 7; i++) {
+    var pdate = document.getElementById('pdate'+i);
+    var ptype = document.getElementById('ptype'+i);
+    if (!pdate || !ptype) return;
+    days.push({
+      name: DAY_NAMES[i],
+      date: pdate.value,
+      type: ptype.value
+    });
+  }
+
+  // Week summary bar
+  var sumEl = document.getElementById('weekSummary');
+  var sumHtml = '';
+  for (var si = 0; si < days.length; si++) {
+    var sd = days[si];
+    var sti = TYPE_INFO[sd.type] || TYPE_INFO.practice;
+    var smd = MEAL_DATA[sd.type] || MEAL_DATA.practice;
+    sumHtml += '<div class="week-sum-cell" style="border-color:'+sti.color+';background:'+sti.light+';color:'+sti.color+';">' +
+      '<div class="week-sum-date">'+sd.date+'</div>' +
+      '<div class="week-sum-day">'+sd.name+'</div>' +
+      '<div class="week-sum-type">'+smd.label+'</div>' +
+    '</div>';
+  }
+  sumEl.innerHTML = sumHtml;
+
+  // Meal cards per day
+  var mealsEl = document.getElementById('planMeals');
+  var mealsHtml = '';
+  for (var di = 0; di < days.length; di++) {
+    var d = days[di];
+    var ti = TYPE_INFO[d.type] || TYPE_INFO.practice;
+    var md = MEAL_DATA[d.type] || MEAL_DATA.practice;
+
+    var h = '<div class="plan-day-section">';
+    h += '<div class="plan-day-hdr" style="background:'+ti.light+';border:1px solid '+ti.color+'40;">' +
+      '<div class="plan-day-hdr-date" style="color:'+ti.color+';">'+d.date+'（'+d.name+'）</div>' +
+      '<div class="plan-day-hdr-type" style="color:'+ti.color+';">'+md.label+'</div>' +
+      '<div style="margin-left:auto;font-size:11px;color:'+ti.color+';">'+md.kcal.toLocaleString()+' kcal</div>' +
+    '</div>';
+
+    h += '<div style="margin-bottom:0.6rem;padding:0 2px;">' +
+      '<div class="macro-row"><span class="macro-label">炭水化物</span><div class="macro-bar-bg"><div class="macro-bar-fill bc" style="width:'+md.carb+'%"></div></div><span class="macro-val">'+md.carb+'%</span></div>' +
+      '<div class="macro-row"><span class="macro-label">たんぱく質</span><div class="macro-bar-bg"><div class="macro-bar-fill bp" style="width:'+md.protein+'%"></div></div><span class="macro-val">'+md.protein+'%</span></div>' +
+      '<div class="macro-row"><span class="macro-label">脂質</span><div class="macro-bar-bg"><div class="macro-bar-fill bf" style="width:'+md.fat+'%"></div></div><span class="macro-val">'+md.fat+'%</span></div>' +
+    '</div>';
+
+    for (var mi = 0; mi < md.meals.length; mi++) {
+      var meal = md.meals[mi];
+      var cal = 0;
+      for (var ii = 0; ii < meal.items.length; ii++) cal += meal.items[ii].cal;
+      h += '<div class="meal-card"><div class="meal-hdr"><span class="meal-hdr-title">'+meal.name+'</span>' +
+        '<span class="meal-badge" style="background:'+ti.light+';color:'+ti.color+';">'+cal+' kcal</span></div>' +
+        '<div class="meal-body">';
+      for (var ji = 0; ji < meal.items.length; ji++) {
+        var item = meal.items[ji];
+        h += '<div class="meal-item"><div><div class="meal-item-name">'+item.n+'</div><div class="meal-item-note">'+item.note+'</div></div><div class="meal-item-cal">'+item.cal+'</div></div>';
+      }
+      h += '</div></div>';
+    }
+    h += '</div>';
+    mealsHtml += h;
+  }
+  mealsEl.innerHTML = mealsHtml;
+
+  // Generate shopping list and store in shopContent tab
+  var shopMap = {};
+  for (var shi = 0; shi < days.length; shi++) {
+    var shmd = MEAL_DATA[days[shi].type] || MEAL_DATA.practice;
+    for (var sii = 0; sii < shmd.shopItems.length; sii++) {
+      shopMap[shmd.shopItems[sii]] = true;
+    }
+  }
+  var always = ['味噌','醤油','みりん','オリーブオイル','はちみつ'];
+  for (var ai = 0; ai < always.length; ai++) shopMap[always[ai]] = true;
+
+  var shopItems = Object.keys(shopMap);
+  var groups = {
+    '主食・炭水化物 🌾': shopItems.filter(function(i){ return /白米|雑穀|うどん|パン|食パン|おにぎり/.test(i); }),
+    '肉・魚 🥩': shopItems.filter(function(i){ return /肉|魚|鮭|鶏|牛|豚/.test(i); }),
+    '卵・乳製品 🥛': shopItems.filter(function(i){ return /卵|牛乳|ヨーグルト|プロテイン|チーズ/.test(i); }),
+    '野菜・果物 🥦': shopItems.filter(function(i){ return /野菜|バナナ|フルーツ|グレープ|きのこ|じゃがいも|かぼちゃ/.test(i); }),
+    '大豆製品 🫘': shopItems.filter(function(i){ return /納豆|豆腐|ひじき/.test(i); }),
+    '補食・飲料 ⚡': shopItems.filter(function(i){ return /スポーツ|ゼリー|スポドリ|ドリンク/.test(i); }),
+    'その他・調味料 🧴': shopItems.filter(function(i){ return !/白米|雑穀|うどん|パン|食パン|おにぎり|肉|魚|鮭|鶏|牛|豚|卵|牛乳|ヨーグルト|プロテイン|チーズ|野菜|バナナ|フルーツ|グレープ|きのこ|じゃがいも|かぼちゃ|納豆|豆腐|ひじき|スポーツ|ゼリー|スポドリ|ドリンク/.test(i); })
+  };
+
+  planChecked = {};
+  var shopHtml = '<div style="font-size:12px;color:#1D9E75;font-weight:600;padding:8px 10px;background:#e8f8f2;border-radius:8px;margin-bottom:1rem;">📅 今週の献立から自動生成した買い物リストです</div>';
+  var groupEntries = Object.keys(groups);
+  for (var gi = 0; gi < groupEntries.length; gi++) {
+    var cat = groupEntries[gi];
+    var gitems = groups[cat];
+    if (gitems.length === 0) continue;
+    shopHtml += '<div><div class="shop-cat">'+cat+'</div><div class="shop-items">';
+    for (var gii = 0; gii < gitems.length; gii++) {
+      var key = 'ps_'+gi+'_'+gii;
+      shopHtml += '<span class="shop-tag" onclick="togglePlanShop(''+key+'',this)">'+gitems[gii]+'</span>';
+    }
+    shopHtml += '</div></div>';
+  }
+
+  // Write to the shop tab
+  var shopEl = document.getElementById('shopContent');
+  if (shopEl) shopEl.innerHTML = shopHtml;
+
+  var planResult = document.getElementById('planResult');
+  planResult.className = 'plan-result show';
+  planResult.scrollIntoView({behavior:'smooth'});
+}
+
+function togglePlanShop(key, el) {
+  planChecked[key] = !planChecked[key];
+  el.classList.toggle('done', planChecked[key]);
+}
+
+// Initialize planner on load
+// init handled by DOMContentLoaded
+
 </script>
 </body>
 </html>
