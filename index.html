@@ -786,11 +786,16 @@ function generateGrow() {
       '<div class="grow-phase-item" style="flex:'+p.w+';background:'+p.color+'20;border:1px solid '+p.color+';color:'+p.color+';">'+p.label+'</div>'
     ).join('') + '</div>';
 
+  // Nutrition ratio (needed for stats)
+  const carbPct = isAggressive ? 58 : 55;
+  const protPct = isAggressive ? 22 : 25;
+  const fatPct2 = isAggressive ? 20 : 20;
+
   // Stats
   const stats = '<div class="grow-stat-grid">' +
     '<div class="grow-stat"><div class="grow-stat-num">'+totalKcal.toLocaleString()+'</div><div class="grow-stat-unit">kcal/日</div><div class="grow-stat-label">目標カロリー</div></div>' +
     '<div class="grow-stat"><div class="grow-stat-num">'+proteinG+'</div><div class="grow-stat-unit">g/日</div><div class="grow-stat-label">たんぱく質目標</div></div>' +
-    '<div class="grow-stat"><div class="grow-stat-num">+'+extraKcalPerDay+'</div><div class="grow-stat-unit">kcal/日</div><div class="grow-stat-label">増量分の上乗せ</div></div>' +
+    '<div class="grow-stat"><div class="grow-stat-num">'+Math.round(totalKcal * carbPct / 100 / 4)+'</div><div class="grow-stat-unit">g/日</div><div class="grow-stat-label">糖質目標</div><div class="grow-stat-sub" style="color:#888;">(白米 約'+Math.round(Math.round(totalKcal * carbPct / 100 / 4) / 35 * 100)+'g)</div></div>' +
   '</div>';
 
   // Monthly progress
@@ -824,9 +829,6 @@ function generateGrow() {
   html += '<div class="card card-pad" style="margin-bottom:0.8rem;">' + monthlyHtml + '</div>';
 
   // Nutrition balance guidance
-  const carbPct = isAggressive ? 58 : 55;
-  const protPct = isAggressive ? 22 : 25;
-  const fatPct2 = isAggressive ? 20 : 20;
   html += '<div class="card card-pad" style="margin-bottom:0.8rem;">' +
     '<div class="card-title">推奨栄養バランス</div>' +
     '<div class="macro-row"><span class="macro-label">炭水化物</span><div class="macro-bar-bg"><div class="macro-bar-fill bc" style="width:'+carbPct+'%"></div></div><span class="macro-val">'+carbPct+'%</span></div>' +
