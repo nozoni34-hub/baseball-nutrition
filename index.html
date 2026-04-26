@@ -154,6 +154,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
 .sub-content { display: none; }
 .sub-content.show { display: block; }
 
+
+/* ===== WEEK NAVIGATOR ===== */
+.week-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; background: #fff; border: 1px solid #e8e8e3; border-radius: 12px; padding: 10px 14px; }
+.week-nav-btn { background: none; border: 1px solid #ddd; border-radius: 8px; padding: 6px 12px; font-size: 13px; cursor: pointer; color: #1a1a1a; transition: all 0.12s; }
+.week-nav-btn:active { background: #f5f5f0; }
+.week-nav-label { font-size: 13px; font-weight: 600; color: #1a1a1a; text-align: center; }
+.week-nav-sub { font-size: 11px; color: #888; text-align: center; margin-top: 2px; }
+.week-today-btn { font-size: 11px; color: #1D9E75; border: 1px solid #1D9E75; background: none; border-radius: 6px; padding: 3px 8px; cursor: pointer; margin-top: 4px; display: block; margin: 4px auto 0; }
+
 /* ===== GROW PLANNER ===== */
 .grow-input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
 .grow-input-item { display: flex; flex-direction: column; gap: 4px; }
@@ -218,9 +227,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
     <div class="pw-title">野球部 栄養プランナー</div>
     <div class="pw-sub">保護者専用アプリです<br>パスワードを入力してください</div>
     <input class="pw-input" type="password" id="pw-input" placeholder="••••••"
-      maxlength="20" onkeydown="if(event.key==='Enter')tryLogin()" autocomplete="off" />
+      maxlength="20" onkeydown="if(event.key==='Enter')doLogin()" autocomplete="off" />
     <div class="pw-error" id="pw-error"></div>
-    <button class="pw-btn" onclick="tryLogin()">ログイン</button>
+    <button class="pw-btn" onclick="doLogin()">ログイン</button>
     <div class="pw-hint">パスワードはLINEでお知らせしています</div>
   </div>
 </div>
@@ -233,8 +242,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
     <p>スタジオF ジュニアアスリートキッチン理論に基づく</p>
   </div>
   <div class="tabs">
-    <button class="tab active" onclick="showTab('main')">📋 献立</button>
-    <button class="tab" onclick="showTab('calc')">📊 必要量</button>
+    <button class="tab active" onclick="showTab('grow')">📈 増量</button>
+    <button class="tab" onclick="showTab('week')">📅 週間</button>
     <button class="tab" onclick="showTab('shop')">🛒 買い物</button>
     <button class="tab" onclick="showTab('water')">💧 水分</button>
     <button class="tab" onclick="showTab('tips')">💪 栄養</button>
@@ -242,64 +251,19 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
 
 
 
-  <!-- TAB: Calculator -->
-  <div id="tab-calc" class="pad hidden">
-    <div class="card card-pad">
-      <div class="card-title">1日の必要カロリーを計算する</div>
-      <div class="input-row">
-        <label>年齢</label>
-        <select id="age" onchange="calc()">
-          <option value="31">12〜14歳（基礎代謝 31.0）</option>
-          <option value="27" selected>15〜17歳（基礎代謝 27.0）</option>
-        </select>
-      </div>
-      <div class="input-row">
-        <label>体重（kg）</label>
-        <input type="number" id="weight" value="65" min="40" max="120" oninput="calc()" />
-      </div>
-      <div class="formula-note">計算式：体重 × 基礎代謝基準値 × 身体活動レベル 2.0（厚生労働省）</div>
-      <div class="result-grid">
-        <div class="result-card">
-          <div class="result-num" id="r-kcal">3510</div>
-          <div class="result-unit">kcal / 日</div>
-          <div class="result-label">1日の必要エネルギー</div>
-        </div>
-        <div class="result-card">
-          <div class="result-num" id="r-protein">117</div>
-          <div class="result-unit">g / 日</div>
-          <div class="result-label">たんぱく質（体重×1.8g）</div>
-        </div>
-      </div>
-    </div>
-    <div class="card card-pad">
-      <div class="card-title" id="protein-title">たんぱく質 117g を食材で確保するには</div>
-      <div style="font-size:11px;color:#888;margin-bottom:8px;">各食材1食分で必要量の何割をカバーできるか</div>
-      <div class="pbar-section" id="proteinBars"></div>
-      <div class="note-box">動物性×大豆製品の「ダブルたんぱく」を意識。毎食：卵・納豆・牛乳・ヨーグルトでベースを確保し、肉や魚でメインを追加。</div>
-    </div>
+  <!-- TAB: Grow -->
+  <div id="tab-grow" class="pad">
+
     <div class="card card-pad" style="border-color:#FAC77580;">
       <div class="card-title">増量計画の立て方（スタジオF式）</div>
       <div class="grow-tip">
         ① 何kg増量したいか → 筋肉量・体脂肪量を体組成計で測る<br>
         ② 期間を決める → 「いつまでに何kg？」<br>
-        ③ 必要エネルギーを算出（上の計算機を活用）<br>
+        ③ 必要エネルギーを算出（下の計算機を活用）<br>
         ④ 体脂肪を増やさず増量するには <strong style="color:#ba7517;">ビタミン・ミネラルが大事！</strong>
       </div>
       <div class="grow-highlight">コツ：ちょい足し小鉢・具だくさん汁物・フルーツで微量栄養素をカバー</div>
     </div>
-  </div>
-
-  <!-- TAB: Menu -->
-  <!-- TAB: Main (献立・週間・増量) -->
-  <div id="tab-main" class="pad">
-    <div class="sub-tabs">
-      <button class="sub-tab active" onclick="showSub('grow')">📈 増量プラン</button>
-      <button class="sub-tab" onclick="showSub('week')">📅 週間設定</button>
-      <button class="sub-tab" onclick="showSub('day')">🗓 日別献立</button>
-    </div>
-
-    <!-- SUB: 増量プラン -->
-    <div id="sub-grow" class="sub-content show">
       <div class="card card-pad">
         <div class="card-title">📈 増量プランを作成する</div>
         <div style="font-size:12px;color:#888;margin-bottom:12px;">目標体重と期間を入力すると、増量のための食事プランを自動生成します</div>
@@ -346,33 +310,39 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
       <div class="grow-result" id="growResult">
         <div id="growContent"></div>
       </div>
-    </div>
+  </div>
 
-    <!-- SUB: 週間設定 -->
-    <div id="sub-week" class="sub-content">
+  <!-- TAB: Week -->
+  <div id="tab-week" class="pad hidden">
+      <!-- Week Navigator -->
+      <div class="week-nav">
+        <button class="week-nav-btn" onclick="changeWeek(-1)">◀ 前の週</button>
+        <div>
+          <div class="week-nav-label" id="weekNavLabel">今週</div>
+          <div class="week-nav-sub" id="weekNavRange"></div>
+          <button class="week-today-btn" onclick="goToThisWeek()">今週に戻る</button>
+        </div>
+        <button class="week-nav-btn" onclick="changeWeek(1)">次の週 ▶</button>
+      </div>
       <div class="card card-pad">
-        <div class="card-title">📅 今週のスケジュールを入力する</div>
+        <div class="card-title">📅 スケジュールを入力する</div>
         <div style="font-size:12px;color:#666;margin-bottom:10px;">各曜日の日付とその日の種類を選んでください</div>
         <div class="plan-week-row" id="planWeekRow"></div>
-        <button class="gen-btn" onclick="generatePlan()">⚾ この週の献立を作成する</button>
+        <div id="planGrowNotice" style="font-size:11px;color:#888;padding:6px 10px;background:#f5f5f0;border-radius:8px;margin-bottom:8px;display:none;">💡 増量タブでプランを作成すると、そのカロリーに合わせた献立になります</div>
+        <button class="gen-btn" onclick="checkAndGeneratePlan()">⚾ この週の献立を作成する</button>
       </div>
       <div class="plan-result" id="planResult">
         <div class="week-summary" id="weekSummary"></div>
         <div id="planMeals"></div>
         <button class="gen-shop-btn" onclick="showTab('shop')">🛒 買い物リストを見る</button>
       </div>
-    </div>
-
-    <!-- SUB: 日別献立 -->
-    <div id="sub-day" class="sub-content">
-      <div class="day-grid" id="dayGrid"></div>
-      <div id="dayContent"></div>
-    </div>
   </div>
+
+
 
   <!-- TAB: Shopping -->
   <div id="tab-shop" class="pad hidden">
-    <div style="font-size:12px;color:#666;padding:8px 10px;background:#f5f5f0;border-radius:8px;margin-bottom:1rem;">タップで購入済みチェックができます。1週間まとめ買いの目安量です。</div>
+    <div style="font-size:11px;color:#888;padding:6px 10px;margin-bottom:0.5rem;">タップで購入済みチェックができます</div>
     <div id="shopContent"></div>
   </div>
 
@@ -493,33 +463,35 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sa
 // ここを変更するとパスワードが変わります
 var CORRECT_PASSWORD = 'shuyu2026';
 
-// セッション中はログイン状態を維持
-function tryLogin() {
-  const input = document.getElementById('pw-input').value;
-  const errEl = document.getElementById('pw-error');
-  if (input === CORRECT_PASSWORD) {
+function doLogin() {
+  var inputEl = document.getElementById('pw-input');
+  var errEl = document.getElementById('pw-error');
+  if (!inputEl) return;
+  var val = inputEl.value;
+  if (val === CORRECT_PASSWORD) {
     document.getElementById('pw-screen').style.display = 'none';
     document.getElementById('main-app').style.display = 'block';
-    sessionStorage.setItem('auth', '1');
+    try { sessionStorage.setItem('auth', '1'); } catch(e) {}
     calc();
-    showTab('main');
+    showTab('grow');
   } else {
-    errEl.textContent = 'パスワードが違います。もう一度お試しください。';
-    const inp = document.getElementById('pw-input');
-    inp.classList.add('error');
-    inp.value = '';
-    setTimeout(() => inp.classList.remove('error'), 400);
+    if (errEl) errEl.textContent = 'パスワードが違います。もう一度お試しください。';
+    inputEl.style.borderColor = '#D85A30';
+    inputEl.value = '';
+    setTimeout(function() { inputEl.style.borderColor = ''; }, 1000);
   }
 }
 
 // ページを開いたとき、同じセッションならスキップ
 window.addEventListener('DOMContentLoaded', function() {
-  if (sessionStorage.getItem('auth') === '1') {
-    document.getElementById('pw-screen').style.display = 'none';
-    document.getElementById('main-app').style.display = 'block';
-    calc();
-    showTab('main');
-  }
+  try {
+    if (sessionStorage.getItem('auth') === '1') {
+      document.getElementById('pw-screen').style.display = 'none';
+      document.getElementById('main-app').style.display = 'block';
+      calc();
+      showTab('grow');
+    }
+  } catch(e) {}
 });
 
 // ===== アプリ本体 =====
@@ -616,36 +588,24 @@ var SHOPPING = {
 var curDay = 'mon';
 var checked = {};
 
-var TAB_IDS = ['main','calc','shop','water','tips'];
+var TAB_IDS = ['grow','week','shop','water','tips'];
 
 function showTab(t) {
-  TAB_IDS.forEach(id => {
-    const el = document.getElementById('tab-' + id);
-    if (!el) return;
-    el.className = 'pad hidden';
-  });
-  const active = document.getElementById('tab-' + t);
-  if (active) active.className = t === 'main' ? 'pad' : 'pad';
-  document.querySelectorAll('.tab').forEach((el, i) => {
-    el.className = 'tab' + (TAB_IDS[i] === t ? ' active' : '');
-  });
+  for (var ti = 0; ti < TAB_IDS.length; ti++) {
+    var el = document.getElementById('tab-' + TAB_IDS[ti]);
+    if (el) el.className = 'pad hidden';
+  }
+  var active = document.getElementById('tab-' + t);
+  if (active) active.className = 'pad';
+  var tabs = document.querySelectorAll('.tab');
+  for (var tj = 0; tj < tabs.length; tj++) {
+    tabs[tj].className = 'tab' + (TAB_IDS[tj] === t ? ' active' : '');
+  }
   if (t === 'shop') renderShop();
-  if (t === 'main') { initPlanWeek(); }
+  if (t === 'grow') calc();
+  if (t === 'week') initPlanWeek();
 }
 
-function showSub(s) {
-  var subs = ['grow','week','day'];
-  for (var i = 0; i < subs.length; i++) {
-    var el = document.getElementById('sub-' + subs[i]);
-    if (el) el.className = 'sub-content' + (subs[i] === s ? ' show' : '');
-  }
-  var stabs = document.querySelectorAll('.sub-tab');
-  for (var j = 0; j < stabs.length; j++) {
-    stabs[j].className = 'sub-tab' + (subs[j] === s ? ' active' : '');
-  }
-  if (s === 'day') { renderDayGrid(); renderDay(); }
-  if (s === 'week') { initPlanWeek(); }
-}
 
 function renderDayGrid() {
   document.getElementById('dayGrid').innerHTML = DAYS.map(d => {
@@ -673,7 +633,13 @@ function renderDay() {
 }
 
 function renderShop() {
-  document.getElementById('shopContent').innerHTML = Object.entries(SHOPPING).map(([cat,items]) =>
+  // Build date range label from current weekOffset
+  var monday = getMondayOfWeek(weekOffset);
+  var sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  var dateLabel = fmt(monday) + '（月）〜 ' + fmt(sunday) + '（日）';
+  var header = '<div style="font-size:13px;color:#1a1a1a;font-weight:600;padding:10px 12px;background:#e8f8f2;border:1px solid #5DCAA5;border-radius:10px;margin-bottom:1rem;">🛒 買い物リスト　' + dateLabel + '</div>';
+  document.getElementById('shopContent').innerHTML = header + Object.entries(SHOPPING).map(([cat,items]) =>
     '<div><div class="shop-cat">'+cat+'</div><div class="shop-items">'+
     items.map((item,i)=>{const key=cat+i;return '<span class="shop-tag'+(checked[key]?' done':'')+'" onclick="toggleShop(\''+key+'\',this)">'+item+'</span>';}).join('')+
     '</div></div>').join('');
@@ -792,6 +758,9 @@ function generateGrow() {
   const muscleGain = Math.round(diff * (1 - (fatGoal - fatPct) / 100 * 0.5) * 10) / 10;
 
   const isAggressive = extraKcalPerDay >= 400;
+  // Save for use in weekly meal plan
+  growPlanKcal = totalKcal;
+  growPlanProtein = proteinG;
   const recipes = isAggressive ? GROW_RECIPES_FIXED.high : GROW_RECIPES_FIXED.mid;
 
   // Warning check
@@ -866,14 +835,7 @@ function generateGrow() {
     '<div class="note-box" style="margin-top:8px;">体脂肪を増やさず筋肉を増やすには<strong>ビタミン・ミネラルが必須</strong>。毎食「ちょい足し小鉢」と「具だくさん汁物」「フルーツ」を意識して。</div>' +
   '</div>';
 
-  html += '<div style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:8px;">🌅 朝食レシピ（ローテーション）</div>';
-  recipes.breakfast.forEach(r => { html += recipeCard(r); });
 
-  html += '<div style="font-size:13px;font-weight:600;color:#1a1a1a;margin:12px 0 8px;">⚡ 補食レシピ（練習前後）</div>';
-  recipes.snack.forEach(r => { html += recipeCard(r); });
-
-  html += '<div style="font-size:13px;font-weight:600;color:#1a1a1a;margin:12px 0 8px;">🌙 夕食レシピ（ローテーション）</div>';
-  recipes.dinner.forEach(r => { html += recipeCard(r); });
 
   // Key nutrients for muscle gain
   html += '<div class="card card-pad" style="margin-top:0.5rem;">' +
@@ -901,21 +863,68 @@ var TYPE_OPTIONS = [
 ];
 
 // Get Monday of current week
-function getMondayOfWeek() {
-  const today = new Date();
-  const d = new Date(today);
-  const day = d.getDay();
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-  d.setDate(diff);
-  return d;
+var weekOffset = 0; // 0=今週, 1=来週, -1=先週
+var growPlanKcal = 0;    // 増量プランで計算した目標カロリー（0=未設定）
+var growPlanProtein = 0; // 増量プランで計算したたんぱく質量
+
+function getMondayOfWeek(offset) {
+  var today = new Date();
+  var day = today.getDay();
+  var diff = today.getDate() - day + (day === 0 ? -6 : 1);
+  var monday = new Date(today);
+  monday.setDate(diff + (offset || 0) * 7);
+  monday.setHours(0,0,0,0);
+  return monday;
 }
 
 function fmt(d) {
   return (d.getMonth()+1) + '/' + d.getDate();
 }
 
+function fmtFull(d) {
+  return (d.getMonth()+1) + '月' + d.getDate() + '日';
+}
+
+function updateWeekNavLabel() {
+  var labelEl = document.getElementById('weekNavLabel');
+  var rangeEl = document.getElementById('weekNavRange');
+  if (!labelEl || !rangeEl) return;
+  var monday = getMondayOfWeek(weekOffset);
+  var sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  if (weekOffset === 0) labelEl.textContent = '今週';
+  else if (weekOffset === 1) labelEl.textContent = '来週';
+  else if (weekOffset === -1) labelEl.textContent = '先週';
+  else if (weekOffset > 0) labelEl.textContent = weekOffset + '週間後';
+  else labelEl.textContent = Math.abs(weekOffset) + '週間前';
+  rangeEl.textContent = fmtFull(monday) + '（月）〜 ' + fmtFull(sunday) + '（日）';
+}
+
+function changeWeek(delta) {
+  weekOffset += delta;
+  updateWeekNavLabel();
+  renderPlanWeek();
+  // Reset result
+  var result = document.getElementById('planResult');
+  if (result) result.className = 'plan-result';
+}
+
+function goToThisWeek() {
+  weekOffset = 0;
+  updateWeekNavLabel();
+  renderPlanWeek();
+  var result = document.getElementById('planResult');
+  if (result) result.className = 'plan-result';
+}
+
 function initPlanWeek() {
-  var monday = getMondayOfWeek();
+  weekOffset = 0;
+  updateWeekNavLabel();
+  renderPlanWeek();
+}
+
+function renderPlanWeek() {
+  var monday = getMondayOfWeek(weekOffset);
   var row = document.getElementById('planWeekRow');
   if (!row) return;
   var defaultTypes = ['practice','practice','practice','off','pre','game','postgame'];
@@ -1007,6 +1016,16 @@ var TYPE_INFO = {
 
 var planChecked = {};
 
+function checkAndGeneratePlan() {
+  var notice = document.getElementById('planGrowNotice');
+  if (growPlanKcal === 0 && notice) {
+    notice.style.display = 'block';
+  } else if (notice) {
+    notice.style.display = 'none';
+  }
+  generatePlan();
+}
+
 function generatePlan() {
   var days = [];
   for (var i = 0; i < 7; i++) {
@@ -1036,8 +1055,16 @@ function generatePlan() {
   sumEl.innerHTML = sumHtml;
 
   // Meal cards per day
+  // Calculate kcal multiplier based on grow plan
+  var kcalNote = '';
+  var kcalMultiplier = 1.0;
+  if (growPlanKcal > 0) {
+    // Base reference is practice day (3200 kcal)
+    kcalMultiplier = growPlanKcal / 3200;
+    kcalNote = '<div style="font-size:12px;color:#1D9E75;font-weight:600;padding:10px 12px;background:#e8f8f2;border:1px solid #5DCAA5;border-radius:10px;margin-bottom:1rem;">💪 増量プランに基づくカロリー設定（目標：' + growPlanKcal.toLocaleString() + ' kcal/日）で作成しています</div>';
+  }
   var mealsEl = document.getElementById('planMeals');
-  var mealsHtml = '';
+  var mealsHtml = kcalNote;
   for (var di = 0; di < days.length; di++) {
     var d = days[di];
     var ti = TYPE_INFO[d.type] || TYPE_INFO.practice;
@@ -1047,9 +1074,13 @@ function generatePlan() {
     h += '<div class="plan-day-hdr" style="background:'+ti.light+';border:1px solid '+ti.color+'40;">' +
       '<div class="plan-day-hdr-date" style="color:'+ti.color+';">'+d.date+'（'+d.name+'）</div>' +
       '<div class="plan-day-hdr-type" style="color:'+ti.color+';">'+md.label+'</div>' +
-      '<div style="margin-left:auto;font-size:11px;color:'+ti.color+';">'+md.kcal.toLocaleString()+' kcal</div>' +
+      '<div style="margin-left:auto;font-size:11px;color:'+ti.color+';">'+Math.round(md.kcal * kcalMultiplier).toLocaleString()+' kcal</div>' +
     '</div>';
 
+    var adjustedKcal = Math.round(md.kcal * kcalMultiplier);
+    var extraPerDay = growPlanKcal > 0 ? Math.round((md.kcal * kcalMultiplier) - md.kcal) : 0;
+    var extraLabel = growPlanKcal > 0 && extraPerDay !== 0 ? '（基準より' + (extraPerDay > 0 ? '+' : '') + extraPerDay + ' kcal）' : '';
+    h += '<div style="font-size:11px;color:#888;margin-bottom:6px;padding:0 2px;">目標カロリー：<strong style="color:#1a1a1a;">' + adjustedKcal.toLocaleString() + ' kcal</strong>' + extraLabel + '</div>';
     h += '<div style="margin-bottom:0.6rem;padding:0 2px;">' +
       '<div class="macro-row"><span class="macro-label">炭水化物</span><div class="macro-bar-bg"><div class="macro-bar-fill bc" style="width:'+md.carb+'%"></div></div><span class="macro-val">'+md.carb+'%</span></div>' +
       '<div class="macro-row"><span class="macro-label">たんぱく質</span><div class="macro-bar-bg"><div class="macro-bar-fill bp" style="width:'+md.protein+'%"></div></div><span class="macro-val">'+md.protein+'%</span></div>' +
@@ -1097,7 +1128,11 @@ function generatePlan() {
   };
 
   planChecked = {};
-  var shopHtml = '<div style="font-size:12px;color:#1D9E75;font-weight:600;padding:8px 10px;background:#e8f8f2;border-radius:8px;margin-bottom:1rem;">📅 今週の献立から自動生成した買い物リストです</div>';
+  // Build date range label from days array
+  var firstDate = days[0].date;
+  var lastDate = days[6].date;
+  var shopTitle = '🛒 買い物リスト　' + firstDate + '（月）〜 ' + lastDate + '（日）';
+  var shopHtml = '<div style="font-size:13px;color:#1a1a1a;font-weight:600;padding:10px 12px;background:#e8f8f2;border:1px solid #5DCAA5;border-radius:10px;margin-bottom:1rem;">' + shopTitle + '</div>';
   var groupEntries = Object.keys(groups);
   for (var gi = 0; gi < groupEntries.length; gi++) {
     var cat = groupEntries[gi];
@@ -1106,7 +1141,7 @@ function generatePlan() {
     shopHtml += '<div><div class="shop-cat">'+cat+'</div><div class="shop-items">';
     for (var gii = 0; gii < gitems.length; gii++) {
       var key = 'ps_'+gi+'_'+gii;
-      shopHtml += '<span class="shop-tag" onclick="togglePlanShop(''+key+'',this)">'+gitems[gii]+'</span>';
+      shopHtml += '<span class="shop-tag" onclick="togglePlanShop(\'' + key + '\',this)">' + gitems[gii] + '</span>';
     }
     shopHtml += '</div></div>';
   }
