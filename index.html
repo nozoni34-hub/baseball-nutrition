@@ -795,7 +795,7 @@ function generateGrow() {
   const stats = '<div class="grow-stat-grid">' +
     '<div class="grow-stat"><div class="grow-stat-num">'+totalKcal.toLocaleString()+'</div><div class="grow-stat-unit">kcal/日</div><div class="grow-stat-label">目標カロリー</div></div>' +
     '<div class="grow-stat"><div class="grow-stat-num">'+proteinG+'</div><div class="grow-stat-unit">g/日</div><div class="grow-stat-label">たんぱく質目標</div></div>' +
-    '<div class="grow-stat"><div class="grow-stat-num">'+Math.round(totalKcal * carbPct / 100 / 4)+'</div><div class="grow-stat-unit">g/日</div><div class="grow-stat-label">糖質目標</div><div class="grow-stat-sub" style="color:#888;">(白米 約'+Math.round(Math.round(totalKcal * carbPct / 100 / 4) / 35 * 100)+'g)</div></div>' +
+    '<div class="grow-stat"><div class="grow-stat-num">'+Math.round(totalKcal * carbPct / 100 / 4)+'</div><div class="grow-stat-unit">g/日</div><div class="grow-stat-label">糖質目標</div><div class="grow-stat-sub" style="color:#888;font-size:10px;">(白米 約'+Math.round(Math.round(totalKcal * carbPct / 100 / 4) / 35 * 100)+'g)</div></div>' +
   '</div>';
 
   // Monthly progress
